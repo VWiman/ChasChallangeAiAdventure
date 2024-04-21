@@ -21,7 +21,7 @@ export default function Chat() {
 		setMessage(trimmedMessage.toString());
 		setHistory((prevHistory) => {
 			const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
-			return [...newHistory, trimmedMessage];
+			return [...newHistory, "user: " + trimmedMessage];
 		});
 		try {
 			const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -67,11 +67,14 @@ export default function Chat() {
 			const data = await response.json();
 
 			if (response.ok) {
-				const lastMessage = data.choices[0].message.content;
-				setResponse(lastMessage.toString());
+				const fullMessageObject = data.choices[0].message.content;
+				console.log("Full message object:", fullMessageObject);
+				const parsedFullMessageObject = JSON.parse(fullMessageObject);
+				const messageContent = parsedFullMessageObject.message;
+				setResponse(messageContent);
 				setHistory((prevHistory) => {
 					const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
-					return [...newHistory, lastMessage];
+					return [...newHistory,"system: " + messageContent];
 				});
 				console.log(history.toString());
 				setMessage("");
