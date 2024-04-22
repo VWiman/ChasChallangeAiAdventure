@@ -44,12 +44,17 @@ export default function Chat() {
 						{
 							role: "system",
 							content:
+								"If the character is hurt during the story you put the amount of hp lost in the stats section of the response. If no hp is lost, you put 0.",
+						},
+						{
+							role: "system",
+							content:
 								`You always consider the conversation history to set the current context in the context section of the response. Include important information and current location. You update context every time you answer. You always end your output with a question. History log: ` +
 								history.toString(),
 						},
 						{
 							role: "system",
-							content: `You are designed to only output JSON object in a string like: {"context": {"character": "example", "summary": "example", "location": "example"}, "message":  "example"}`,
+							content: `You are designed to only output JSON object in a string like: {"context": {"character": "example", "summary": "example", "location": "example"}, "message":  "example", "stats": {"loss": 0}}`,
 						},
 						{
 							role: "user",
