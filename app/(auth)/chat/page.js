@@ -44,7 +44,7 @@ export default function Chat() {
 						{
 							role: "system",
 							content:
-								"If the character is hurt during the story you put the amount of hp lost in the stats section of the response. If no hp is lost, you put 0.",
+								"You make sure to remember details about the world in the world section.",
 						},
 						{
 							role: "system",
@@ -54,7 +54,7 @@ export default function Chat() {
 						},
 						{
 							role: "system",
-							content: `You are designed to only output JSON object in a string like: {"context": {"character": "example", "summary": "example", "location": "example"}, "message":  "example", "stats": {"loss": 0}}`,
+							content: `You are designed to only output JSON object in a string like: {"context": {"character": "example", "summary": "example", "location": "example"}, "message":  "example", "world": {"capital": "example"}}`,
 						},
 						{
 							role: "user",
