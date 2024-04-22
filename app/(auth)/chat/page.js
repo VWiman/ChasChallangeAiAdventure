@@ -34,7 +34,7 @@ export default function Chat() {
 					model: "gpt-3.5-turbo",
 					response_format: { type: "json_object" },
 					temperature: 1.25,
-					max_tokens: 300,
+					max_tokens: 400,
 					messages: [
 						{
 							role: "system",
@@ -54,7 +54,7 @@ export default function Chat() {
 						},
 						{
 							role: "system",
-							content: `You are designed to only output JSON object in a string like: {"context": {"character": "example", "summary": "example", "location": "example"}, "message":  "example", "world": {"capital": "example"}}`,
+							content: `You are designed to only output JSON object in a string like: {"context": {"character": {name: "example", class: "example"}, "summary": "example", "location": "example"}, "message":  "example", "world": {"type:" "fantasy", "capital": "example"}}`,
 						},
 						{
 							role: "user",
