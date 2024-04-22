@@ -33,7 +33,7 @@ export default function Chat() {
 				body: JSON.stringify({
 					model: "gpt-3.5-turbo",
 					response_format: { type: "json_object" },
-					temperature: 0.75,
+					temperature: 1.25,
 					max_tokens: 300,
 					messages: [
 						{
