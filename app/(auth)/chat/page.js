@@ -54,7 +54,7 @@ export default function Chat() {
 						},
 						{
 							role: "system",
-							content: `You are designed to only output JSON object in a string like: {"context": {"character": {name: "example", class: "example"}, "summary": "example", "location": "example"}, "message":  "example", "world": {"type:" "fantasy", "capital": "example"}}`,
+							content: `You are designed to only output JSON object in a string like: {"context": {"character": {name: "example", class: "example", race: "example"}, "summary": "example", "location": "example"}, "message":  "example", "world": {"type:" "fantasy", "charcter hometown": "example"}}`,
 						},
 						{
 							role: "user",
