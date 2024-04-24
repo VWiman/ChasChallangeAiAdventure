@@ -17,7 +17,7 @@ export default function Validate() {
 			if (!response.ok) throw new Error(`Failed to validate API key: ${response.status}`);
 
 			setApiKey(apiKey);
-			router.push("/chat");
+			router.push("/lore");
 		} catch (error) {
 			setError(error.message);
 		}
