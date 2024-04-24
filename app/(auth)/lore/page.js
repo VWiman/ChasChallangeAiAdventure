@@ -1,5 +1,5 @@
 "use client";
-export default function Validate() {
+export default function Lore() {
 
 	return (
 		<div>
