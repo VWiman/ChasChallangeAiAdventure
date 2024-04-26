@@ -1,16 +1,23 @@
 "use client";
-import { useState, useContext } from "react";
-import { LoreContext } from "@/context/LoreContext";
+
+import { useState } from "react";
+import { useLore } from "@/context/LoreContext";
 import RaceComponent from "@/components/Race";
 import ClassComponent from "@/components/Class";
 import TownComponent from "@/components/Town";
 
 export default function LorePage() {
-  const { setLore } = useContext(LoreContext);
-  const [name, setName] = useState("");
-  const [characterClass, setCharacterClass] = useState("");
-  const [race, setRace] = useState("");
-  const [hometown, setHometown] = useState("");
+  const {
+    name,
+    setName,
+    characterClass,
+    setCharacterClass,
+    race,
+    setRace,
+    hometown,
+    setHometown,
+    setLore,
+  } = useLore();
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
@@ -20,6 +27,7 @@ export default function LorePage() {
       return;
     }
     setLore({ name, characterClass, race, hometown });
+    // Reset alla fält?
   };
 
   return (
@@ -31,7 +39,9 @@ export default function LorePage() {
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
         />
-				
+        <RaceComponent />
+        <ClassComponent />
+        <TownComponent />
         <button type="submit">Submit</button>
       </form>
 
