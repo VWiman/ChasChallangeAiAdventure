@@ -1,15 +1,14 @@
 "use client";
 
-import { useContext } from "react";
-import { LoreContext } from "@/context/LoreContext";
+import { useLore } from "@/context/LoreContext";
 import Dropdown from "@/components/Dropdown";
 import ButtonWithTooltip from "@/components/ButtonWithToolTip";
 
 const ClassComponent = () => {
-  const { characterClass, setCharacterClass } = useContext(LoreContext);  // Using context to manage state
+  const { characterClass, setCharacterClass } = useLore();
 
   const handleSelect = (value) => {
-    setCharacterClass(value);  // Update context directly
+    setCharacterClass(value);
   };
 
   return (
@@ -17,10 +16,10 @@ const ClassComponent = () => {
       <div>
         <Dropdown
           options={[
-            "Bard", "Wizard", "Monk", "Barbarian", "Druid", "Rogue"  // Updated 'Dragonborn' to 'Rogue' for accuracy
+            "Bard", "Wizard", "Monk", "Barbarian", "Druid", "Rogue"
           ]}
           onSelect={handleSelect}
-          value={characterClass}  // Set the current value from context
+          value={characterClass}
         />
         <p>Class: {characterClass}</p>
       </div>

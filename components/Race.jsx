@@ -1,15 +1,14 @@
 "use client";
 
-import { useContext } from "react";
-import { LoreContext } from "@/context/LoreContext";
+import { useLore } from "@/context/LoreContext";
 import Dropdown from "@/components/Dropdown";
 import ButtonWithTooltip from "@/components/ButtonWithToolTip";
 
 const RaceComponent = () => {
-  const { race, setRace } = useContext(LoreContext); // Using LoreContext to manage the race state
+  const { race, setRace } = useLore();
 
   const handleSelect = (value) => {
-    setRace(value); // Setting race in the global context
+    setRace(value);
   };
 
   return (
@@ -20,7 +19,7 @@ const RaceComponent = () => {
             "Human", "Tiefling", "Githyanki", "Half-Orc", "Gnome", "Dragonborn"
           ]}
           onSelect={handleSelect}
-          value={race} // Ensuring the Dropdown reflects the current value from context
+          value={race}
         />
         <p>Race: {race}</p>
       </div>

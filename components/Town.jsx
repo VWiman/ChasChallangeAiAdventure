@@ -1,12 +1,11 @@
 "use client";
 
-import { useContext } from "react";
-import { LoreContext } from "@/context/LoreContext";
+import { useLore } from "@/context/LoreContext";
 import Dropdown from "@/components/Dropdown";
 import ButtonWithTooltip from "@/components/ButtonWithToolTip";
 
 const TownComponent = () => {
-  const { hometown, setHometown } = useContext(LoreContext);
+  const { hometown, setHometown } = useLore();
 
   const handleSelect = (value) => {
     setHometown(value);
