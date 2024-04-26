@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useContext } from "react";
+import { LoreContext } from "@/context/LoreContext";
 import Dropdown from "@/components/Dropdown";
 import ButtonWithTooltip from "@/components/ButtonWithToolTip";
 
 const TownComponent = () => {
-  const [selectedValue, setSelectedValue] = useState("");
+  const { hometown, setHometown } = useContext(LoreContext);
 
   const handleSelect = (value) => {
-    setSelectedValue(value);
+    setHometown(value);
   };
 
   return (
@@ -24,8 +25,9 @@ const TownComponent = () => {
             "Arcanum",
           ]}
           onSelect={handleSelect}
+          value={hometown}
         />
-        <p>Town: {selectedValue}</p>
+        <p>Town: {hometown}</p>
       </div>
 
       <div>
@@ -33,8 +35,6 @@ const TownComponent = () => {
           buttonText="Hover over me"
           tooltipText={
             <div style={{ maxWidth: "400px" }}>
-              {" "}
-              {/* Adjust the maxWidth to your desired width */}
               <p>
                 Eldorium:
                 <br />A city ablaze with ambition and innovation, its towering
@@ -54,7 +54,7 @@ const TownComponent = () => {
               <p>
                 Marinath:
                 <br />A coastal city where sea and sky meet, shaping a culture
-                of maritime exploration and tradition
+                of maritime exploration and tradition.
               </p>
               <p>
                 Aetherius:

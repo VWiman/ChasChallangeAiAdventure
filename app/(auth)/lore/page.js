@@ -27,7 +27,11 @@ export default function LorePage() {
       return;
     }
     setLore({ name, characterClass, race, hometown });
-    // Reset alla fält?
+    setName("");
+    setCharacterClass("");
+    setRace("");
+    setHometown("");
+    setError("");
   };
 
   return (
