@@ -1,55 +1,44 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useLore } from "@/context/LoreContext";
 import RaceComponent from "@/components/Race";
 import ClassComponent from "@/components/Class";
 import TownComponent from "@/components/Town";
 
 export default function LorePage() {
-  const {
-    name,
-    setName,
-    characterClass,
-    setCharacterClass,
-    race,
-    setRace,
-    hometown,
-    setHometown,
-    setLore,
-  } = useLore();
-  const [error, setError] = useState("");
+	const router = useRouter();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!name || !characterClass || !race || !hometown) {
-      setError("All fields need to be filled in");
-      return;
-    }
-    setLore({ name, characterClass, race, hometown });
-    setName("");
-    setCharacterClass("");
-    setRace("");
-    setHometown("");
-    setError("");
-  };
+	const { name, setName, characterClass, race, hometown } = useLore();
 
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-        />
-        <RaceComponent />
-        <ClassComponent />
-        <TownComponent />
-        <button type="submit">Submit</button>
-      </form>
+	const [error, setError] = useState("");
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </>
-  );
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (!name || !characterClass || !race || !hometown) {
+			setError("All fields need to be filled in");
+			return;
+		}
+		try {
+			router.push("/chat");
+		} catch (error) {
+			setError("There was a small problem: ", error);
+			console.log(error);
+		}
+	};
+
+	return (
+		<>
+			<form onSubmit={handleSubmit}>
+				<input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+				<RaceComponent />
+				<ClassComponent />
+				<TownComponent />
+				<button type="submit">Submit</button>
+			</form>
+
+			{error && <p style={{ color: "red" }}>{error}</p>}
+		</>
+	);
 }

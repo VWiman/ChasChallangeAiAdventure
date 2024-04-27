@@ -23,7 +23,7 @@ export function LoreProvider({ children }) {
         race,
         setRace,
         hometown,
-        setHometown,
+        setHometown
       }}
     >
       {children}

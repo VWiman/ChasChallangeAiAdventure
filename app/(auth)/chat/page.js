@@ -1,12 +1,20 @@
 "use client";
 import { useApi } from "@/context/ApiContext";
-import { useState } from "react";
+import { useLore } from "@/context/LoreContext";
+import { useEffect, useRef, useState } from "react";
 
 export default function Chat() {
+	// Global
 	const { apiKey } = useApi();
-	const [message, setMessage] = useState("");
+	const { name, characterClass, race, hometown } = useLore();
+
+	// Local
+	const [message, setMessage] = useState(
+		`This is my first time. My characters name is ${name}, I am a ${characterClass}, I am from the ${race} race, My hometown is ${hometown}`
+	);
 	const [response, setResponse] = useState("");
 	const [history, setHistory] = useState([]);
+	const hasSentInitialMessage = useRef(false);
 
 	const sendMessage = async () => {
 		if (!apiKey) {
@@ -43,8 +51,7 @@ export default function Chat() {
 						},
 						{
 							role: "system",
-							content:
-								"You make sure to remember details about the world in the world section.",
+							content: "You make sure to remember details about the world in the world section. You never forget to include a part of the JSON object.",
 						},
 						{
 							role: "system",
@@ -54,7 +61,11 @@ export default function Chat() {
 						},
 						{
 							role: "system",
-							content: `You are designed to only output JSON object in a string like: {"context": {"character": {name: "example", class: "example", race: "example"}, "summary": "example", "location": "example"}, "message":  "example", "world": {"type:" "fantasy", "charcter hometown": "example"}}`,
+							content: `You are designed to only output JSON object in a string like: {"context": {"character": {name: ${name}, class: ${characterClass}, race: ${race}}, "summary": "summary of recent and current events", "location": "current location"}, "message":  ${message}, "world": {"type:" "fantasy", "charcter hometown": ${hometown}}}`,
+						},
+						{
+							role: "system",
+							content: `The characters hometown: ${hometown}, race: ${race}, name: ${name} and class: ${characterClass} can not be changed unless the user commands it.`,
 						},
 						{
 							role: "user",
@@ -74,7 +85,7 @@ export default function Chat() {
 				setResponse(messageContent);
 				setHistory((prevHistory) => {
 					const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
-					return [...newHistory,"system: " + messageContent];
+					return [...newHistory, "system: " + messageContent];
 				});
 				console.log(history.toString());
 				setMessage("");
@@ -85,14 +96,33 @@ export default function Chat() {
 			console.error("API request failed.");
 			setResponse("Failed to send message. Please try again.");
 		}
+		hasSentInitialMessage.current = true;
 	};
 
-	return (
+	/* 
+	-- Initial message using useEffect --
+	Important: In production we should remove hasSentInitialMessage and timeout as strict mode is no longer needed. At the moment we need it to not call api twice on first page load.
+	*/
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			if (!hasSentInitialMessage.current) {
+				sendMessage().then(() => {
+					hasSentInitialMessage.current = true;
+				});
+			}
+		}, 1000);
+
+		return () => clearTimeout(timeout);
+	}, []);
+
+	return response != "" ? (
 		<div>
 			<h1>Chat with AI</h1>
 			<input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type your message" />
 			<button onClick={sendMessage}>Send</button>
 			{response && <p>Response: {response}</p>}
 		</div>
+	) : (
+		<div>Loading...</div>
 	);
 }
