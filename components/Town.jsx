@@ -12,21 +12,24 @@ const TownComponent = () => {
   };
 
   return (
-    <div className="comps">
-      <div>
-        <Dropdown
-          options={[
-            "Eldorium",
-            "Verdant Haven",
-            "Vaporia",
-            "Marinath",
-            "Aetherius",
-            "Arcanum",
-          ]}
-          onSelect={handleSelect}
-          value={hometown}
-        />
-        <p>Town: {hometown}</p>
+    <div className="flex items-center gap-2 my-2">
+      <div className="w-4/5"> 
+        <label className="inline-flex flex-col w-full">
+					<span className="text-gray-600">Select Town</span>
+          <Dropdown
+            options={[
+              "Eldorium",
+              "Verdant Haven",
+              "Vaporia",
+              "Marinath",
+              "Aetherius",
+              "Arcanum",
+            ]}
+            onSelect={handleSelect}
+            value={hometown}
+            />
+        </label>
+        <p className="text-gray-600">Selected Town: {hometown}</p>
       </div>
 
       <div>

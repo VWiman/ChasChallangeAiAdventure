@@ -12,19 +12,22 @@ const ClassComponent = () => {
   };
 
   return (
-    <div className="comps">
-      <div>
-        <Dropdown
-          options={[
-            "Bard", "Wizard", "Monk", "Barbarian", "Druid", "Rogue"
-          ]}
-          onSelect={handleSelect}
-          value={characterClass}
-        />
-        <p>Class: {characterClass}</p>
+    <div className="flex items-center gap-2 my-2">
+      <div className="w-4/5"> 
+        <label className="inline-flex flex-col w-full">
+					<span className="text-gray-600">Select Class</span>
+          <Dropdown
+            options={[
+              "Bard", "Wizard", "Monk", "Barbarian", "Druid", "Rogue"
+            ]}
+            onSelect={handleSelect}
+            value={characterClass}
+            />
+        </label>
+        <p className="text-gray-600">Selected Class: {characterClass}</p>
       </div>
 
-      <div>
+      <div className="w-1/5">
         <ButtonWithTooltip
           tooltipText={
             <div style={{ maxWidth: "400px" }}>

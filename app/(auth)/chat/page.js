@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/components/Button";
 import { useApi } from "@/context/ApiContext";
 import { useLore } from "@/context/LoreContext";
 import { useEffect, useRef, useState } from "react";
@@ -135,7 +136,7 @@ export default function Chat() {
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Type your message"
       />
-      <button onClick={sendMessage}>Send</button>
+      <Button onClick={sendMessage}>Send</Button>
       {response && <p>Response: {response}</p>}
     </div>
   ) : (
