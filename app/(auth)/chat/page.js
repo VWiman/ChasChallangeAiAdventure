@@ -33,58 +33,55 @@ export default function Chat() {
       return [...newHistory, "user: " + trimmedMessage];
     });
     try {
-      const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            response_format: { type: "json_object" },
-            temperature: 0.0,
-            max_tokens: 400,
-            messages: [
-              {
-                role: "system",
-                content:
-                  "You are a dungeon master, you guide the user on an adventure. The user is assuming the role of a character.",
-              },
-              {
-                role: "user",
-                content: message,
-              },
-              {
-                role: "system",
-                content:
-                  "You make sure to remember details about the world in the world section. You never forget to include a part of the JSON object.",
-              },
-              {
-                role: "system",
-                content:
-                  `You always consider the conversation history to set the current context in the context section of the response. Include important information and current location. You update context every time you answer. You always end your output with a two option question. History log: ` +
-                  history.toString(),
-              },
-              {
-                role: "system",
-                content:
-                  'You are designed to only output a JSON object in a string format like: {"context": {"character": {"name": "${name}", "class": "${characterClass}", "race": "${race}"}, "summary": "Summary of recent and current events", "location": "Current location"}, "message": "${message}", "world": {"type": "fantasy", "characterHometown": "${hometown}"}}',
-              },
-              {
-                role: "system",
-                content: `The characters hometown: ${hometown}, race: ${race}, name: ${name} and class: ${characterClass} can not be changed unless the user commands it.`,
-              },
-              {
-                role: "system",
-                content:
-                  "Tell the user what happens from second person perspective, and present suggestions for what to do next",
-              },
-            ],
-          }),
-        }
-      );
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${apiKey}`,
+				},
+				body: JSON.stringify({
+					model: "gpt-3.5-turbo-1106",
+					response_format: { type: "json_object" },
+					temperature: 0.0,
+					max_tokens: 400,
+					messages: [
+						{
+							role: "system",
+							content:
+								"You are a dungeon master, you guide the user on an adventure. The user is assuming the role of a character.",
+						},
+						{
+							role: "user",
+							content: message,
+						},
+						{
+							role: "system",
+							content:
+								"You make sure to remember details about the world in the world section. You never forget to include a part of the JSON object.",
+						},
+						{
+							role: "system",
+							content:
+								`You always consider the conversation history to set the current context in the context section of the response. Include important information and current location. You update context every time you answer. You always end your output with a two option question. History log: ` +
+								history.toString(),
+						},
+						{
+							role: "system",
+							content:
+								'You are designed to only output a JSON object in a string format like: {"context": {"character": {"name": "${name}", "class": "${characterClass}", "race": "${race}"}, "summary": "Summary of recent and current events", "location": "Current location"}, "message": "${message}", "world": {"type": "fantasy", "characterHometown": "${hometown}"}}',
+						},
+						{
+							role: "system",
+							content: `The characters hometown: ${hometown}, race: ${race}, name: ${name} and class: ${characterClass} can not be changed unless the user commands it.`,
+						},
+						{
+							role: "system",
+							content:
+								"Tell the user what happens from second person perspective, and present suggestions for what to do next",
+						},
+					],
+				}),
+			});
 
       const data = await response.json();
 
