@@ -12,19 +12,22 @@ const RaceComponent = () => {
   };
 
   return (
-    <div className="comps">
-      <div>
-        <Dropdown
-          options={[
-            "Human", "Tiefling", "Githyanki", "Half-Orc", "Gnome", "Dragonborn"
-          ]}
-          onSelect={handleSelect}
-          value={race}
-        />
-        <p>Race: {race}</p>
+    <div className="flex items-center gap-2 my-2">
+      <div className="w-4/5"> 
+        <label className="inline-flex flex-col w-full">
+					<span className="text-gray-600">Select race</span>
+          <Dropdown
+            options={[
+              "Human", "Tiefling", "Githyanki", "Half-Orc", "Gnome", "Dragonborn"
+            ]}
+            onSelect={handleSelect}
+            value={race}
+            />
+        </label>
+        <p className="text-gray-600">Selected Race: {race}</p>
       </div>
 
-      <div>
+      <div className="w-1/5">
         <ButtonWithTooltip
           buttonText="Hover over me"
           tooltipText={

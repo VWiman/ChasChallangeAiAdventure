@@ -1,5 +1,7 @@
 "use client";
+import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
+
 
 export default function Home() {
   const router = useRouter();
@@ -20,7 +22,7 @@ export default function Home() {
           tale? Step forward and transform your imagination into an
           unforgettable narrative.
         </p>
-        <button onClick={handleValidation}>Get started</button>
+        <Button radius="rsm" onClick={handleValidation}>Get started</Button>
       </div>
     </main>
   );
