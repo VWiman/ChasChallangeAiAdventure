@@ -60,6 +60,7 @@ export default function Chat() {
 					Authorization: `Bearer ${apiKey}`,
 				},
 				body: JSON.stringify({
+					// NOTE GPT VERSION IS 4 NOW
 					model: "gpt-4-1106-preview",
 					response_format: { type: "json_object" },
 					temperature: 0.0,
