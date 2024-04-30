@@ -90,7 +90,7 @@ export default function Chat() {
 						},
 						{
 							role: "system",
-							content: "You always reply with a JSON object.",
+							content: "You always reply with a JSON object. You do not include qoutation marks or literals in response.",
 						},
 						{
 							role: "system",
