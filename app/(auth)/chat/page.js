@@ -17,6 +17,7 @@ export default function Chat() {
 	const [history, setHistory] = useState(["user: " + message,]);
 	const [suggestions, setSuggestions] = useState([]);
 	const hasSentInitialMessage = useRef(false);
+	const [isWaiting, setIsWaiting] = useState(false);
 
 	const sendMessage = async (userMessage = message) => {
 		if (!apiKey) {
@@ -53,6 +54,7 @@ export default function Chat() {
 		});
 
 		try {
+			setIsWaiting(true)
 			const response = await fetch("https://api.openai.com/v1/chat/completions", {
 				method: "POST",
 				headers: {
@@ -114,7 +116,9 @@ export default function Chat() {
 				});
 				console.log(history.toString());
 				setMessage("");
+				setIsWaiting(false);
 			} else {
+				setIsWaiting(false);
 				throw new Error(data.error.message || "Failed to fetch response from OpenAI");
 			}
 		} catch (error) {
@@ -151,7 +155,7 @@ export default function Chat() {
 			{response && <p>Response: {response}</p>}
 			{suggestions &&
 				suggestions.map((suggestion, index) => (
-					<Button key={index} onClick={() => handleSuggestion(suggestion)}>
+					<Button key={index} onClick={() => handleSuggestion(suggestion)} disabled={isWaiting}>
 						{suggestion}
 					</Button>
 				))}
