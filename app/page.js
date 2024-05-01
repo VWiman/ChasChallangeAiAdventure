@@ -1,13 +1,19 @@
 "use client";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
-
+import { useState } from "react";
 
 export default function Home() {
   const router = useRouter();
   const handleValidation = () => {
     router.push("/validate");
   };
+
+  const [username, setUsername] = (useState = "");
+
+  const [currentFact, setCurrentfacts] = "";
+
+  const facts = ["graceful", "brave", "elegant", "mystical"];
   return (
     <main>
       <div>
@@ -22,7 +28,9 @@ export default function Home() {
           tale? Step forward and transform your imagination into an
           unforgettable narrative.
         </p>
-        <Button radius="rsm" onClick={handleValidation}>Get started</Button>
+        <Button radius="rsm" onClick={handleValidation}>
+          Get started
+        </Button>
       </div>
     </main>
   );
