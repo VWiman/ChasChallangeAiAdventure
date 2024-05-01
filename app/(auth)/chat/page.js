@@ -14,26 +14,27 @@ export default function Chat() {
 		`This is my first time. My characters name is ${name}, I am a ${characterClass}, I am from the ${race} race, My hometown is ${hometown}`
 	);
 	const [response, setResponse] = useState("");
-	const [history, setHistory] = useState([]);
+	const [history, setHistory] = useState(["user: " + message,]);
+	const [suggestions, setSuggestions] = useState([]);
 	const hasSentInitialMessage = useRef(false);
 
-	const sendMessage = async () => {
+	const sendMessage = async (userMessage = message) => {
 		if (!apiKey) {
 			alert("API Key is not set.");
 			return;
 		}
-		if (!message) {
+
+		if (!userMessage) {
 			alert("Please enter a message.");
 			return;
 		}
-		const trimmedMessage = message.trim();
-		setMessage(trimmedMessage.toString());
+
 		setHistory((prevHistory) => {
 			const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
-			return [...newHistory, "user: " + trimmedMessage];
+			return [...newHistory, "user: " + userMessage];
 		});
-    
-		const context = JSON.stringify({
+
+		const content = JSON.stringify({
 			context: {
 				character: {
 					name: name,
@@ -46,11 +47,10 @@ export default function Chat() {
 					type: "fantasy",
 					characterHometown: hometown,
 				},
-				message: trimmedMessage,
-				suggestions: "Provide suggestions of what to do next",
+				message: "Response to " + userMessage,
 			},
-    });
-    
+			suggestions: "Provide suggestions of what to do next",
+		});
 
 		try {
 			const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -90,11 +90,12 @@ export default function Chat() {
 						},
 						{
 							role: "system",
-							content: "You always reply with a JSON object. You do not include qoutation marks or literals in response.",
+							content:
+								"You always reply with a JSON object. You do not include qoutation marks or literals in response.",
 						},
 						{
 							role: "system",
-							content: context,
+							content: content,
 						},
 					],
 				}),
@@ -103,14 +104,13 @@ export default function Chat() {
 			const data = await response.json();
 
 			if (response.ok) {
-				const fullMessageObject = data.choices[0].message.content;
+				const fullMessageObject = JSON.parse(data.choices[0].message.content);
 				console.log("Full message object:", fullMessageObject);
-				const parsedFullMessageObject = JSON.parse(fullMessageObject);
-				const messageContent = parsedFullMessageObject.context.message;
-				setResponse(messageContent);
+				setResponse(fullMessageObject.context.message);
+				setSuggestions(fullMessageObject.suggestions);
 				setHistory((prevHistory) => {
 					const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
-					return [...newHistory, "system: " + messageContent];
+					return [...newHistory, "system: " + fullMessageObject.context.message];
 				});
 				console.log(history.toString());
 				setMessage("");
@@ -131,7 +131,7 @@ export default function Chat() {
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			if (!hasSentInitialMessage.current) {
-				sendMessage().then(() => {
+				sendMessage(message).then(() => {
 					hasSentInitialMessage.current = true;
 				});
 			}
@@ -140,12 +140,21 @@ export default function Chat() {
 		return () => clearTimeout(timeout);
 	}, []);
 
+	function handleSuggestion(suggestion) {
+		setMessage(suggestion);
+		sendMessage(suggestion);
+	}
+
 	return response != "" ? (
 		<div>
 			<h1>Chat with AI</h1>
-			<input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type your message" />
-			<Button onClick={sendMessage}>Send</Button>
 			{response && <p>Response: {response}</p>}
+			{suggestions &&
+				suggestions.map((suggestion, index) => (
+					<Button key={index} onClick={() => handleSuggestion(suggestion)}>
+						{suggestion}
+					</Button>
+				))}
 		</div>
 	) : (
 		<div>Loading...</div>
