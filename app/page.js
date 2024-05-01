@@ -9,7 +9,7 @@ export default function Home() {
     router.push("/validate");
   };
 
-  const [username, setUsername] = (useState = "");
+  const [username, setUsername] = useState()
 
   const [currentFact, setCurrentfacts] = "";
 
