@@ -14,7 +14,9 @@ export default function Chat() {
 		`This is my first time. My characters name is ${name}, I am a ${characterClass}, I am from the ${race} race, My hometown is ${hometown}`
 	);
 	const [response, setResponse] = useState("");
-	const [history, setHistory] = useState(["user: " + message,]);
+	const [history, setHistory] = useState(["user: " + message]);
+	// Full history is used only for summary button, send it during chat.
+	const [fullHistory, setFullHistory] = useState(["user: " + message]);
 	const [suggestions, setSuggestions] = useState([]);
 	const hasSentInitialMessage = useRef(false);
 	const [isWaiting, setIsWaiting] = useState(false);
@@ -30,9 +32,14 @@ export default function Chat() {
 			return;
 		}
 
+		setFullHistory((prevFullHistory) => {
+			const newFullHistory = prevFullHistory.length >= 2 ? prevFullHistory : "";
+			return [...newFullHistory, "user: " + userMessage];
+		});
+
 		setHistory((prevHistory) => {
-			const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
-			return [...newHistory, "user: " + userMessage];
+			const newHistory = prevHistory.length >= 4 || prevHistory.length === 1 ? prevHistory.slice(1) : prevHistory;
+			return [...newHistory, " user: " + userMessage];
 		});
 
 		const content = JSON.stringify({
@@ -54,7 +61,7 @@ export default function Chat() {
 		});
 
 		try {
-			setIsWaiting(true)
+			setIsWaiting(true);
 			const response = await fetch("https://api.openai.com/v1/chat/completions", {
 				method: "POST",
 				headers: {
@@ -110,11 +117,13 @@ export default function Chat() {
 				console.log("Full message object:", fullMessageObject);
 				setResponse(fullMessageObject.context.message);
 				setSuggestions(fullMessageObject.suggestions);
+				setFullHistory((prevFullHistory) => {
+					return [...prevFullHistory, "system: " + fullMessageObject.context.message];
+				});
 				setHistory((prevHistory) => {
 					const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
 					return [...newHistory, "system: " + fullMessageObject.context.message];
 				});
-				console.log(history.toString());
 				setMessage("");
 				setIsWaiting(false);
 			} else {
@@ -135,14 +144,20 @@ export default function Chat() {
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			if (!hasSentInitialMessage.current) {
-				sendMessage(message).then(() => {
+				sendMessage().then(() => {
 					hasSentInitialMessage.current = true;
 				});
 			}
-		}, 2000);
+		}, 1500);
 
 		return () => clearTimeout(timeout);
 	}, []);
+
+	// Logging history
+	useEffect(() => {
+		console.log("Recent history:", history);
+		console.log("Full history:", fullHistory);
+	}, [history, fullHistory]);
 
 	function handleSuggestion(suggestion) {
 		setMessage(suggestion);
