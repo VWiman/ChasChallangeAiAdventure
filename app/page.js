@@ -1,7 +1,8 @@
 "use client";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { FaCcStripe } from "react-icons/fa";
 
 export default function Home() {
   const router = useRouter();
@@ -12,10 +13,26 @@ export default function Home() {
   const [teaserFact, setTeaserFact] = useState();
 
   const fact = ["graceful", "brave", "elegant", "mystical"];
+
+  const fetchTeaserFact = () => {
+    const randomIndex = Math.floor(Math.random() * fact.length);
+    setTeaserFact(fact[randomIndex]);
+  };
+
+  useEffect(() => {
+    fetchTeaserFact();
+    const timer = setInterval(() => {
+      fetchTeaserFact();
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <main>
       <div>
-        <h1>Begin your adventure today!</h1>
+        <h1>Begin your {teaserFact} adventure today! </h1>
+
         <p>
           Welcome to the gateway of your own epic saga. Here, you are not just a
           visitor but the very heart of a grand adventure. Craft your hero,
