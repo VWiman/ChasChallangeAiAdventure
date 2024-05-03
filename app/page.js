@@ -9,11 +9,9 @@ export default function Home() {
     router.push("/validate");
   };
 
-  const [username, setUsername] = useState()
+  const [teaserFact, setTeaserFact] = useState();
 
-  const [currentFact, setCurrentfacts] = "";
-
-  const facts = ["graceful", "brave", "elegant", "mystical"];
+  const fact = ["graceful", "brave", "elegant", "mystical"];
   return (
     <main>
       <div>
