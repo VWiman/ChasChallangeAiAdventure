@@ -16,7 +16,9 @@ export default function Chat() {
 	const [response, setResponse] = useState("");
 	const [history, setHistory] = useState(["user: " + message]);
 	// Full history is used only for summary button, send it during chat.
-	const [fullHistory, setFullHistory] = useState(["user: " + message]);
+	const [fullUserHistory, setFullUserHistory] = useState([message]);
+	const [fullSystemHistory, setFullSystemHistory] = useState([]);
+	const [displayHistory, setDisplayHistory] = useState([]);
 	const [suggestions, setSuggestions] = useState([]);
 	const hasSentInitialMessage = useRef(false);
 	const [isWaiting, setIsWaiting] = useState(false);
@@ -32,9 +34,9 @@ export default function Chat() {
 			return;
 		}
 
-		setFullHistory((prevFullHistory) => {
-			const newFullHistory = prevFullHistory.length >= 2 ? prevFullHistory : "";
-			return [...newFullHistory, "user: " + userMessage];
+		setFullUserHistory((prevFullUserHistory) => {
+			const newFullUserHistory = prevFullUserHistory.length >= 1 ? prevFullUserHistory : "";
+			return [...newFullUserHistory, userMessage];
 		});
 
 		setHistory((prevHistory) => {
@@ -117,8 +119,8 @@ export default function Chat() {
 				console.log("Full message object:", fullMessageObject);
 				setResponse(fullMessageObject.context.message);
 				setSuggestions(fullMessageObject.suggestions);
-				setFullHistory((prevFullHistory) => {
-					return [...prevFullHistory, "system: " + fullMessageObject.context.message];
+				setFullSystemHistory((prevFullSystemHistory) => {
+					return [...prevFullSystemHistory, fullMessageObject.context.message];
 				});
 				setHistory((prevHistory) => {
 					const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
@@ -156,8 +158,23 @@ export default function Chat() {
 	// Logging history
 	useEffect(() => {
 		console.log("Recent history:", history);
-		console.log("Full history:", fullHistory);
-	}, [history, fullHistory]);
+		console.log("Full user history:", fullUserHistory);
+		console.log("Full system history:", fullSystemHistory);
+	}, [history, fullUserHistory]);
+
+	useEffect(() => {
+		setDisplayHistory((prevDisplayHistory) => {
+			const newDisplayHistory = prevDisplayHistory;
+			return [...newDisplayHistory, <p>{response}</p>];
+		});
+	}, [fullSystemHistory]);
+
+	useEffect(() => {
+		setDisplayHistory((prevDisplayHistory) => {
+			const newDisplayHistory = prevDisplayHistory;
+			return [...newDisplayHistory, <p className="py-10 text-black/60">{message}</p>];
+		});
+	}, [fullUserHistory]);
 
 	function handleSuggestion(suggestion) {
 		setMessage(suggestion);
@@ -167,13 +184,17 @@ export default function Chat() {
 	return response != "" ? (
 		<div>
 			<h1>Chat with AI</h1>
-			{response && <p>Response: {response}</p>}
-			{suggestions &&
-				suggestions.map((suggestion, index) => (
-					<Button key={index} onClick={() => handleSuggestion(suggestion)} disabled={isWaiting}>
-						{suggestion}
-					</Button>
-				))}
+			{displayHistory.slice(4)}
+			<ul className="flex flex-col my-10 gap-2">
+				{suggestions &&
+					suggestions.map((suggestion, index) => (
+						<li key={index}>
+							<Button onClick={() => handleSuggestion(suggestion)} disabled={isWaiting}>
+								{suggestion}
+							</Button>
+						</li>
+					))}
+			</ul>
 		</div>
 	) : (
 		<div>Loading...</div>
