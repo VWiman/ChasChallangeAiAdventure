@@ -187,7 +187,7 @@ export default function Chat() {
       const newDisplayHistory = prevDisplayHistory;
       return [
         ...newDisplayHistory,
-        <p key={response.slice(0, 10)}>{response}</p>,
+        <p className="py-2 leading-tight" key={response.slice(0, 10)}>{response}</p>,
       ];
     });
   }, [fullSystemHistory]);
@@ -202,11 +202,11 @@ export default function Chat() {
     setDisplayHistory((prevDisplayHistory) => {
       const newDisplayHistory = prevDisplayHistory;
       return [
-        ...newDisplayHistory,
-        <p key={message.slice(0, 10)}>
-          {message}
-        </p>,
-      ];
+				...newDisplayHistory,
+				<p className="py-2 leading-tight" key={message.slice(0, 10)}>
+					{message}
+				</p>,
+			];
     });
   }, [fullUserHistory]);
 
