@@ -1,11 +1,8 @@
 "use client";
 
-import NavBar from "@/components/NavBar";
-
 export default function CharacterSelect() {
   return (
     <>
-      <NavBar />
       <div>
         <h1 className=" text-center font-medium pt-16">Choose your home</h1>
 
@@ -17,7 +14,7 @@ export default function CharacterSelect() {
             ></img>
             <div className="px-4 ">
               <p>Stoneholm</p>
-              <p className="text-sm my-2 w-[250px]">
+              <p className="text-sm my-2 w-[220px]">
                 The crisp mountain air of Stoneholm whispers secrets of
                 adventure.
               </p>
@@ -30,7 +27,7 @@ export default function CharacterSelect() {
             ></img>
             <div className="px-4 ">
               <p>Pineview</p>
-              <p className="text-sm my-2 w-[250px]">
+              <p className="text-sm my-2 w-[220px]">
                 A tranquil sanctuary nestled within ancient forests.
               </p>
             </div>
@@ -44,7 +41,7 @@ export default function CharacterSelect() {
             ></img>
             <div className="px-4 ">
               <p>Marinport</p>
-              <p className="text-sm my-2 w-[250px]">
+              <p className="text-sm my-2 w-[220px]">
                 A small harbor perfect for seafaring quests and trading riches.
               </p>
             </div>
@@ -56,7 +53,7 @@ export default function CharacterSelect() {
             ></img>
             <div className="px-4 ">
               <p>Eldorvik</p>
-              <p className="text-sm my-2 w-[250px]">
+              <p className="text-sm my-2 w-[220px]">
                 Nestled amidst mist-shrouded fjords, is a haven where ancient
                 magic intertwines with rugged beauty.
               </p>
