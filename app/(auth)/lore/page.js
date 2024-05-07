@@ -11,7 +11,7 @@ import { FaTimesCircle } from "react-icons/fa";
 import NavBar from "@/components/NavBar";
 
 export default function LorePage() {
-  <NavBar />;
+
   const router = useRouter();
 
   const { name, setName, characterClass, race, hometown } = useLore();
@@ -34,20 +34,6 @@ export default function LorePage() {
 
   return (
     <>
-      <nav class="flex gap-8 py-2 px-5 items-center justify-between bg-gray-200">
-        <div class="flex gap-8 items-center ">
-          <button>Logo</button>
-        </div>
-
-        <div class="flex  space-x-4">
-          <button class=" hover:text-gray-500">Link</button>
-          <button class=" hover:text-gray-500">Link</button>
-          <button class="bg-black text-white px-5 py-2 hover:bg-text-gray-500">
-            Play
-          </button>
-        </div>
-      </nav>
-
       <div className="flex my-8 gap-3">
         <div className="w-1/2 bg-slate-50 p-4">
           <h1>Lore</h1>

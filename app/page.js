@@ -29,8 +29,8 @@ export default function Home() {
   }, []);
 
   return (
-    // Note that the main for the other pages is in layout under auth
-		<main className="container mx-auto max-w-5xl px-3">
+		// Note that the main for the other pages is in layout under auth
+		<main className="container mx-auto max-w-[810px] px-3">
 			<div>
 				<h1>Begin your {teaserFact} adventure today! </h1>
 

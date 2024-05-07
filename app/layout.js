@@ -1,19 +1,21 @@
+import Header from "@/components/header";
 import "/styles/globals.css";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "AI Adventure",
-  description: "AI adventure website",
+	title: "AI Adventure",
+	description: "AI adventure website",
 };
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-          {children}
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body className={inter.className}>
+				<Header />
+				{children}
+			</body>
+		</html>
+	);
 }
