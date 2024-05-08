@@ -31,7 +31,7 @@ h3 {
     @apply bg-slate-200 hover:bg-slate-200 opacity-40;
   }
   .button.primary {
-    @apply bg-blue-700 text-white hover:bg-blue-600 inline-block;
+    @apply bg-slate-900 text-white hover:bg-slate-600 inline-block;
   }
   .button.secondary {
     @apply bg-violet-100 text-black hover:bg-violet-200 inline-block;
@@ -46,7 +46,7 @@ h3 {
     @apply px-7 py-2;
   }
   .button.large {
-    @apply px-10 py-3;
+    @apply px-10 py-5;
   }
   .button.rsm {
     @apply rounded;

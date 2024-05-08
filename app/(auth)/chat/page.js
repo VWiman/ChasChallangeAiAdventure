@@ -187,7 +187,9 @@ export default function Chat() {
       const newDisplayHistory = prevDisplayHistory;
       return [
         ...newDisplayHistory,
-        <p className="py-2 leading-tight" key={response.slice(0, 10)}>{response}</p>,
+        <p className="py-2 leading-tight" key={response.slice(0, 10)}>
+          {response}
+        </p>,
       ];
     });
   }, [fullSystemHistory]);
@@ -202,11 +204,11 @@ export default function Chat() {
     setDisplayHistory((prevDisplayHistory) => {
       const newDisplayHistory = prevDisplayHistory;
       return [
-				...newDisplayHistory,
-				<p className="py-2 leading-tight" key={message.slice(0, 10)}>
-					{message}
-				</p>,
-			];
+        ...newDisplayHistory,
+        <p className="py-2 leading-tight" key={message.slice(0, 10)}>
+          {message}
+        </p>,
+      ];
     });
   }, [fullUserHistory]);
 
@@ -272,32 +274,37 @@ export default function Chat() {
   };
 
   return response != "" ? (
-		<>
-			<div className="text-lg">
-				<h1>Chat with AI</h1>
-				{displayHistory.slice(4)}
-				<ul className="flex flex-col my-10 gap-2">
-					{suggestions &&
-						suggestions.map((suggestion, index) => (
-							<li className="max-w-[810px] border-l border-black/20 hover:border-black/30" key={index}>
-								<button
-									className="w-full text-left text-lg px-[20px] py-[10px] hover:bg-black/5"
-									onClick={() => handleSuggestion(suggestion)}
-									disabled={isWaiting}>
-									{suggestion}
-								</button>
-							</li>
-						))}
-				</ul>
-			</div>
-			<div>
-				<Button onClick={() => handleSendSummary()}>Summarize</Button>
-				<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
-					{summary}
-				</pre>
-			</div>
-		</>
-	) : (
-		<div>Loading...</div>
-	);
+    <div>
+      <div className="flex flex-col m-auto mt-20 justify-center items-center text-lg w-[930px]">
+        <h1>Chat with AI</h1>
+        {displayHistory.slice(4)}
+        <ul className="flex flex-col my-10 gap-2">
+          {suggestions &&
+            suggestions.map((suggestion, index) => (
+              <li
+                className="max-w-[810px] border-l border-black/20 hover:border-black/30"
+                key={index}
+              >
+                <button
+                  className="w-full text-left text-lg px-[20px] py-[10px] hover:bg-black/5"
+                  onClick={() => handleSuggestion(suggestion)}
+                  disabled={isWaiting}
+                >
+                  {suggestion}
+                </button>
+              </li>
+            ))}
+        </ul>
+      </div>
+
+      <div className="flex flex-col justify-center items-center">
+        <Button onClick={() => handleSendSummary()}>Summarize</Button>
+        <pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
+          {summary}
+        </pre>
+      </div>
+    </div>
+  ) : (
+    <div>Loading...</div>
+  );
 }
