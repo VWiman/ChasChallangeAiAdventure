@@ -10,12 +10,12 @@ export default function Chat() {
 
   // Global
   const { apiKey } = useApi();
-  const { name, characterClass, race, hometown } = useLore();
+  const { name, characterClass, race, hometown, hometownDescription } = useLore();
 
   // Local
   const [message, setMessage] = useState(
-    `This is my first time. My characters name is ${name}, I am a ${characterClass}, I am from the ${race} race, My hometown is ${hometown}.`
-  );
+		`This is my first time. My characters name is ${name}, I am a ${characterClass}, I am from the ${race} race, My hometown is ${hometown} ${hometownDescription}.`
+	);
   const [response, setResponse] = useState("");
   const [history, setHistory] = useState(["user: " + message]);
   // Full history is used only for summary button, send it during chat.
@@ -82,7 +82,7 @@ export default function Chat() {
             Authorization: `Bearer ${apiKey}`,
           },
           body: JSON.stringify({
-            // NOTE GPT VERSION IS 4 NOW
+            // NOTE GPT VERSION IS 4 NOW IN USE
             model: "gpt-4-1106-preview",
             response_format: { type: "json_object" },
             temperature: 0.0,
@@ -276,8 +276,8 @@ export default function Chat() {
   return response != "" ? (
     <div>
       <div className="flex flex-col m-auto mt-20 justify-center items-center text-lg w-[930px]">
-        <h1>Chat with AI</h1>
-        {displayHistory.slice(4)}
+        <h1>{name}´s adventure</h1>
+        {displayHistory.slice(5)}
         <ul className="flex flex-col my-10 gap-2">
           {suggestions &&
             suggestions.map((suggestion, index) => (
