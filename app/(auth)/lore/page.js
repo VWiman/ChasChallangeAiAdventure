@@ -24,6 +24,29 @@ export default function LorePage() {
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedHometown, setSelectedHometown] = useState("");
 
+  const randomName = [
+    "Alaric",
+    "Brynjar",
+    "Eirik",
+    "Finnian",
+    "Gudrun",
+    "Haldor",
+    "Ivarr",
+    "Jorunn",
+    "Kelda",
+    "Leifur",
+    "Alfric",
+    "Boden",
+    "Eirlys",
+    "Fjord",
+    "Gunnar",
+    "Hilda",
+    "Jorgen",
+    "Kjell",
+    "Livana",
+    "Magnus",
+  ];
+
   const races = [
     {
       name: "Human",
@@ -107,6 +130,11 @@ export default function LorePage() {
     setHometown(home.name);
   };
 
+  function handleRandomName() {
+    const randomIndex = Math.floor(Math.random() * randomName.length);
+    setName(randomName[randomIndex]);
+  }
+
   return (
     <>
       <section
@@ -184,7 +212,9 @@ export default function LorePage() {
             placeholder="Name"
             className="w-4/5"
           />
-          <Button className="w-1/5">Generate</Button>
+          <Button onClick={() => handleRandomName()} className="w-1/5">
+            Generate
+          </Button>
         </div>
         {error && (
           <div className="bg-red-100 text-red-800 mt-3 flex p-3 align-middle gap-3 items-center">
