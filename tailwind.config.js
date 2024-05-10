@@ -16,6 +16,7 @@ module.exports = {
         darktext: '#0E0D0B',
         btnhovertext: '#F4F2F1',
         cardbg: '#38332E',
+        formbg: '#554C44',
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
