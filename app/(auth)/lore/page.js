@@ -166,7 +166,7 @@ export default function LorePage() {
 
       <section
         id="class"
-        className="flex flex-col justify-center items-center gap-10 m-20"
+        className="flex flex-col justify-center items-center gap-10 my-28"
       >
         <h1 className="text-5xl font-normal text-center">
           Choose your character class
@@ -187,7 +187,7 @@ export default function LorePage() {
 
       <section
         id="town"
-        className="flex flex-col justify-center items-center gap-10 m-28"
+        className="flex flex-col justify-center items-center gap-10 my-28"
       >
         <h1 className="text-5xl font-normal text-center">
           Choose your character home
