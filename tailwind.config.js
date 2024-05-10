@@ -10,8 +10,8 @@ module.exports = {
       colors: {
         bgcolor: '#1C1917', 
         bgheader: '#0E0D0B',
-        primary: '#2F9D9C',
-        accent: '#257777',
+        primary: '#C66C06',
+        accent: '#9a5200',
         textcolor: '#F4F2F1',
         darktext: '#0E0D0B',
         btnhovertext: '#F4F2F1',
