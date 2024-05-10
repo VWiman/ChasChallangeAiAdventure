@@ -1,8 +1,20 @@
 import Header from "@/components/header";
 import "/styles/globals.css";
-import { Inter } from "next/font/google";
+import { Grenze, Noto_Sans } from "next/font/google";
+import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+
+const grenze = Grenze({
+	subsets: ["latin"],
+	weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
+	variable: '--font-grenze',
+});
+
+const noto = Noto_Sans ({
+	subsets: ["latin"],
+	weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
+	variable: '--font-noto',
+});
 
 export const metadata = {
 	title: "AI Adventure",
@@ -12,9 +24,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={`${grenze.variable} ${noto.variable}`}>
 				<Header />
-				{children}
+				<div className="test">
+					{children}
+				</div>
+				<Footer />
 			</body>
 		</html>
 	);
