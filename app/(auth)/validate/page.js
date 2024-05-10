@@ -35,22 +35,23 @@ export default function Validate() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-5 items-center text-center py-10 min-h-[80vh]">
       
-      <h1>Enter Your OpenAI API Key</h1>
-      <div className="flex gap-2">
-      <input
-        type="text"
-        value={localApiKey}
-        onChange={(e) => setLocalApiKey(e.target.value)}
-        placeholder="API Key"
-        className="w-4/5"
-        />
-        <div className="w-1/5">
-          <Button className="bg-red-900" onClick={handleValidation}>Validate</Button>
-        </div>
+      <h1>Enter Your API-key</h1>
+      <p>Before you can begin your adventure, please enter your API key for validation.</p>
+      <div className="container mx-auto max-w-4xl flex gap-2">
+        <input
+          type="text"
+          value={localApiKey}
+          onChange={(e) => setLocalApiKey(e.target.value)}
+          placeholder="API Key"
+          className="w-[80%] bg-formbg placeholder:text-textcolor h-16 rounded-xl"
+          />
+          <div className="w-[20%]">
+            <Button size="h-16 w-full rounded-xl" onClick={handleValidation}>Validate</Button>
+          </div>
       </div>
-      {error && <div className="bg-red-100 text-red-800 mt-3 flex p-3 align-middle gap-3 items-center"><FaTimesCircle /> {error}</div>}
+      {error && <div className="bg-red-100 text-red-800 mt-3 flex p-3 align-middle gap-3 items-center "><FaTimesCircle /> {error}</div>}
     </div>
   );
 }
