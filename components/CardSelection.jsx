@@ -9,7 +9,7 @@ export default function CardSelection({
   const selectedStyle = isSelected ? "ring-4 ring-blue-500" : ""; // Använder TailwindCSS för att visa en outline när kortet är valt
   return (
     <div
-      className={`bg-gray-100 w-[581px] h-[188px] flex justify-center items-center gap-10 cursor-pointer ${selectedStyle}`}
+      className={`hcard bg-cardbg w-[581px] h-[188px] flex justify-center items-center gap-10 cursor-pointer ${selectedStyle} `}
       onClick={onClick}
     >
       <img
