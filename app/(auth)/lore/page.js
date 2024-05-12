@@ -54,21 +54,25 @@ export default function LorePage() {
   const races = [
     {
       name: "Human",
+      image: "./images/race/race-human.png",
       description:
         "Humans are versatile and adaptable, excelling in various roles due to their balanced abilities and potential",
     },
     {
       name: "Half-Elf",
+      image: "./images/race/race-half-elf.png",
       description:
         "A versatile mix of human and elf, half-elves combine the best traits of both, excelling in social diplomacy and cultural adaptability",
     },
     {
       name: "Elf",
+      image: "./images/race/race-elf.png",
       description:
         "Elves are graceful, long-lived beings with a deep connection to magic and the natural world, skilled in archery and wisdom",
     },
     {
       name: "Dwarf",
+      image: "./images/race/race-dwarf.png",
       description:
         "Dwarves are stout and resilient, renowned for their combat prowess and unparalleled skills in mining and metalwork",
     },
@@ -100,21 +104,25 @@ export default function LorePage() {
   const hometowns = [
     {
       name: "Stoneholm",
+      image: "./images/hometown/stoneholm.png",
       description:
         "A town perched high in the mountains, where the air carries whispers of adventure.",
     },
     {
       name: "Pineview",
+      image: "./images/hometown/pineview.png",
       description:
         "A tranquil town surrounded by ancient forests, offering a peaceful sanctuary.",
     },
     {
       name: "Marinport",
+      image: "./images/hometown/marinport.png",
       description:
         "A bustling harbor town known for its seafaring quests and vibrant trade.",
     },
     {
       name: "Eldorvik",
+      image: "./images/hometown/eldorvik.png",
       description:
         "A town nestled among misty fjords, blending ancient magic with rugged natural beauty.",
     },
@@ -150,11 +158,11 @@ export default function LorePage() {
         <h1 className="text-5xl font-normal text-center">
           Choose your character race
         </h1>
-        <div className="flex gap-4 flex-wrap justify-center items-center">
+        <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
           {races.map((race) => (
             <CardSelection
               key={race.name}
-              imgUrl="https://garden.spoonflower.com/c/13102732/p/f/l/P9866QbjUtNyuiRFcNc1MUGiWPma_LbN5OFaB2OK9GsDqlAr5eZRvlA/gray%20checkerboard.jpg"
+              imgUrl={race.image}
               title={race.name}
               description={race.description}
               onClick={() => handleSelectRace(race)}
@@ -171,7 +179,7 @@ export default function LorePage() {
         <h1 className="text-5xl font-normal text-center">
           Choose your character class
         </h1>
-        <div className="flex gap-4 flex-wrap justify-center items-center">
+        <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
           {classes.map((cls) => (
             <CardSelection
               key={cls.name}
@@ -192,11 +200,11 @@ export default function LorePage() {
         <h1 className="text-5xl font-normal text-center">
           Choose your character home
         </h1>
-        <div className="flex gap-4 flex-wrap justify-center items-center">
+        <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
           {hometowns.map((home) => (
             <CardSelection
               key={home.name}
-              imgUrl="https://garden.spoonflower.com/c/13102732/p/f/l/P9866QbjUtNyuiRFcNc1MUGiWPma_LbN5OFaB2OK9GsDqlAr5eZRvlA/gray%20checkerboard.jpg"
+              imgUrl={home.image}
               title={home.name}
               description={home.description}
               onClick={() => handleSelectHometown(home)}
@@ -210,6 +218,7 @@ export default function LorePage() {
         <h1 className="text-5xl font-normal text-center">
           Enter Your Character's Name
         </h1>
+        <p>Write your character name or generate.</p>
         <div className="flex gap-2">
           <input
             type="text"
@@ -235,12 +244,6 @@ export default function LorePage() {
           Start Adventure
         </Button>
       </section>
-
-      {error && (
-        <div className="bg-red-100 text-red-800 mt-3 flex p-3 align-middle gap-3 items-center">
-          <FaTimesCircle /> {error}
-        </div>
-      )}
     </>
   );
 }
