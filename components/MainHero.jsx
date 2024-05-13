@@ -33,7 +33,7 @@ export default function MainHero() {
 
 	return (
 			<section className="bg-cover bg-center min-h-[600px] w-full flex items-center" style={{ 
-        backgroundImage: ` linear-gradient(0deg, rgba(28,25,23,1) 6%, rgba(28,25,23,0) 63%), url('./images/city-dark.jpg')`
+        backgroundImage: ` linear-gradient(0deg, rgba(28,25,23,1) 6%, rgba(28,25,23,0) 63%), url('./images/new_dark_hero.png')`
       }}> 
         <div className="mycontainer">
           <div className="flex flex-col gap-8 items-center text-center">

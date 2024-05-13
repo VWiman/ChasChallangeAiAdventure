@@ -130,7 +130,12 @@ export default function Chat() {
 				setResponse(fullMessageObject.context.message);
 				setSuggestions(fullMessageObject.suggestions);
 				setFullSystemHistory((prevFullSystemHistory) => {
-					return [...prevFullSystemHistory, fullMessageObject.context.message + "\n"];
+					return [
+						...prevFullSystemHistory,
+						<p className="py-2" key={fullMessageObject.context.message.slice(10)}>
+							{fullMessageObject.context.message}
+						</p>,
+					];
 				});
 				setHistory((prevHistory) => {
 					const newHistory = prevHistory.length >= 4 ? prevHistory.slice(1) : prevHistory;
