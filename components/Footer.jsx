@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
 	return (
-		<footer className="py-5 mt-8 items-center bg-bgheader text-textcolor font-normal text-sm">
+		<footer className="mt-auto py-5 items-center bg-bgheader text-textcolor font-normal text-sm">
 			<div className="mycontainer flex justify-between">
 				<div className="items-center">
 					<p> 2024 - &copy; AI Adventure</p>

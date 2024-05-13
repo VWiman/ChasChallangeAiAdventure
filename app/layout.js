@@ -24,7 +24,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
-			<body className={`${grenze.variable} ${noto.variable}`}>
+			<body className={`${grenze.variable} ${noto.variable} flex flex-col min-h-screen`}>
 				<Header />
 				<div className="test">
 					{children}
