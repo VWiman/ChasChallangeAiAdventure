@@ -274,37 +274,33 @@ export default function Chat() {
   };
 
   return response != "" ? (
-    <div>
-      <div className="flex flex-col m-auto mt-20 justify-center items-center text-lg w-[930px]">
-        <h1>{name}´s adventure</h1>
-        {displayHistory.slice(5)}
-        <ul className="flex flex-col my-10 gap-2">
-          {suggestions &&
-            suggestions.map((suggestion, index) => (
-              <li
-                className="max-w-[810px] border-l border-black/20 hover:border-black/30"
-                key={index}
-              >
-                <button
-                  className="w-full text-left text-lg px-[20px] py-[10px] hover:bg-black/5"
-                  onClick={() => handleSuggestion(suggestion)}
-                  disabled={isWaiting}
-                >
-                  {suggestion}
-                </button>
-              </li>
-            ))}
-        </ul>
-      </div>
+		<div>
+			<div className="flex flex-col m-auto mt-20 justify-center items-center text-lg w-[930px]">
+				<h1>{name}´s adventure</h1>
+				{displayHistory.slice(5)}
+				<ul className="flex flex-col my-10 gap-2">
+					{suggestions &&
+						suggestions.map((suggestion, index) => (
+							<li className="max-w-[810px] border-l border-black/20 hover:border-black/30" key={index}>
+								<button
+									className="w-full text-left text-lg px-[20px] py-[10px] hover:bg-white/5"
+									onClick={() => handleSuggestion(suggestion)}
+									disabled={isWaiting}>
+									{isWaiting ? "Loading..." : suggestion}
+								</button>
+							</li>
+						))}
+				</ul>
+			</div>
 
-      <div className="flex flex-col justify-center items-center">
-        <Button onClick={() => handleSendSummary()}>Summarize</Button>
-        <pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
-          {summary}
-        </pre>
-      </div>
-    </div>
-  ) : (
-    <div>Loading...</div>
-  );
+			<div className="flex flex-col justify-center items-center">
+				<Button onClick={() => handleSendSummary()}>Summarize</Button>
+				<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
+					{summary}
+				</pre>
+			</div>
+		</div>
+	) : (
+		<div>Loading...</div>
+	);
 }
