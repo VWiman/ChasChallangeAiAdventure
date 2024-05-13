@@ -205,7 +205,7 @@ export default function Chat() {
       const newDisplayHistory = prevDisplayHistory;
       return [
         ...newDisplayHistory,
-        <p className="py-2 leading-tight" key={message.slice(0, 10)}>
+        <p className="py-2 leading-tight text-red-300" key={message.slice(0, 10)}>
           {message}
         </p>,
       ];
