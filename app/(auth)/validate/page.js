@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/Button";
+import StorySum from "@/components/StorySum";
 import { useApi } from "@/context/ApiContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -35,7 +36,8 @@ export default function Validate() {
   };
 
   return (
-    <div className="flex flex-col gap-5 items-center text-center py-10 min-h-[80vh]">
+    <>
+    <div className="flex flex-col gap-5 items-center text-center pt-7 pb-14">
       
       <h1>Enter Your API-key</h1>
       <p>Before you can begin your adventure, please enter your API key for validation.</p>
@@ -53,5 +55,10 @@ export default function Validate() {
       </div>
       {error && <div className="bg-red-100 text-red-800 mt-3 flex p-3 align-middle gap-3 items-center "><FaTimesCircle /> {error}</div>}
     </div>
+    <div className=" pt-12 pb-32">
+        <h3>How their stories began..</h3>
+      <StorySum />
+    </div>
+    </>
   );
 }
