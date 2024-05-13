@@ -30,6 +30,9 @@ export default function Chat() {
 	const [summary, setSummary] = useState("");
 	const [hideUserResponse, setHideUserResponse] = useState(false);
 
+	// Summary button loading functionality
+	const [loadingSummary, setLoadingSummary] = useState(false); 
+
 	const sendMessage = async (userMessage = message) => {
 		if (!apiKey) {
 			alert("API Key is not set.");
@@ -188,7 +191,7 @@ export default function Chat() {
 			const newDisplayHistory = prevDisplayHistory;
 			return [
 				...newDisplayHistory,
-				<p className="text-red-500" key={message.slice(0, 10)}>
+				<p className="text-browngray py-2 pl-3 my-3 border-l-2 border-formbg" key={message.slice(0, 10)}>
 					{message}
 				</p>,
 			];
@@ -201,6 +204,7 @@ export default function Chat() {
 	}
 
 	const handleSendSummary = async () => {
+		setLoadingSummary(true); 
 		console.log("Starting fetch...");
 		try {
 			const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -239,48 +243,62 @@ export default function Chat() {
 		} catch (error) {
 			console.error("API request failed:", error);
 			setResponse("Failed to send message. Please try again.");
-		}
+		} finally {
+        setLoadingSummary(false); // loadingSummary = false after fetch done
+    }
 	};
 
 	return response != "" ? (
 		<div>
-			<div className="flex flex-col m-auto mt-20 justify-center items-center text-lg w-[930px]">
-				<h1>{name}´s adventure</h1>
-				<p className="text-sm self-end">Toggle response <Button radius="rf" size="small" onClick={() => setHideUserResponse(!hideUserResponse)}>
-					{hideUserResponse ? (
-						<FiEye />
-					) : (
-						<FiEyeOff />
-					)}
-				</Button></p>
-				
+			<div className="flex flex-col m-auto mt-20 justify-center items-center text-lg max-w-4xl">
+				<h1>{name}´s adventure</h1>				
 				<section className="py-2 leading-tight">
 					{hideUserResponse ? fullSystemHistory : displayHistory.slice(5)}
 				</section>
 
-				<ul className="flex flex-col my-10 gap-2">
-					{suggestions &&
-						suggestions.map((suggestion, index) => (
-							<li className="max-w-[810px] border-l border-black/20 hover:border-black/30" key={index}>
-								<button
-									className="w-full text-left text-lg px-[20px] py-[10px] hover:bg-white/5"
+				<ul className="flex flex-col my-10 gap-2 w-full">
+					<div className=" inline-flex justify-between items-center">
+						<h3 className="text-primary">Select your next action:</h3>
+						<p className="text-xs">Show & Hide my action <button className="w-8 h-8 rounded-full bg-primary inline-flex items-center justify-center" onClick={() => setHideUserResponse(!hideUserResponse)}>
+						{hideUserResponse ? (
+							<FiEye />
+						) : (
+							<FiEyeOff />
+						)}
+							</button></p>
+					</div>
+					
+				{isWaiting ? (
+				<li className="text-center text-lg px-[20px] py-[10px]">Loading content, please wait...</li>
+				) : (
+				suggestions && suggestions.map((suggestion, index) => (
+					<li className="border-l-2 border-formbg hover:border-cardbg" key={index}>
+							<button
+									className="w-full text-left text-lg px-[20px] py-[10px] text-browngray hover:text-textcolor  hover:bg-formbg"
 									onClick={() => handleSuggestion(suggestion)}
-									disabled={isWaiting}>
-									{isWaiting ? "Loading..." : suggestion}
-								</button>
-							</li>
-						))}
+							>
+									{suggestion}
+							</button>
+					</li>
+				))
+				)}
 				</ul>
 			</div>
 
-			<div className="flex flex-col justify-center items-center">
-				<Button onClick={() => handleSendSummary()}>Summarize</Button>
-				<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
-					{summary}
-				</pre>
+			<div className="flex flex-col justify-center items-center pb-16 pt-8">
+				<Button radius="rm" size="large" onClick={handleSendSummary}>Summarize</Button>
+				{loadingSummary ? (
+						<p className="p-10 my-10 text-lg">Summary is loading...</p>
+				) : (
+						summary && (
+								<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
+										{summary}
+								</pre>
+						)
+				)}
 			</div>
 		</div>
 	) : (
-		<div>Loading...</div>
+		<div>Loading, please wait...</div>
 	);
 }

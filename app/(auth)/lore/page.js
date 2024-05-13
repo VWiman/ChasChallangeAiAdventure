@@ -219,7 +219,7 @@ export default function LorePage() {
           Enter Your Character's Name
         </h1>
         <p>Write your character name or generate.</p>
-        <div className="flex gap-2">
+        <div className="flex gap-2 pb-12">
           <input
             type="text"
             value={name}
@@ -230,7 +230,7 @@ export default function LorePage() {
           <Button
             onClick={() => handleRandomName()}
             className="w-1/5"
-            radius="rsm"
+            size="rounded-xl h-16 px-3"
           >
             Generate
           </Button>
@@ -240,7 +240,7 @@ export default function LorePage() {
             <FaTimesCircle /> {error}
           </div>
         )}
-        <Button radius="rsm" onClick={() => router.push("/chat")}>
+        <Button radius="rm" size="h-16 large w-full" onClick={() => router.push("/chat")}>
           Start Adventure
         </Button>
       </section>
