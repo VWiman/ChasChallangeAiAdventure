@@ -149,6 +149,35 @@ export default function LorePage() {
     setName(randomName[randomIndex]);
   }
 
+  function handleStartAdventure() {
+    if (!selectedRace) {
+      setError(
+        "Please select your character's race before starting the adventure."
+      );
+      return;
+    }
+    if (!selectedClass) {
+      setError(
+        "Please select your character's class before starting the adventure."
+      );
+      return;
+    }
+    if (!selectedHometown) {
+      setError(
+        "Please select your character's hometown before starting the adventure."
+      );
+      return;
+    }
+    if (!name.trim()) {
+      setError(
+        "Please enter your character's name before starting the adventure."
+      );
+      return;
+    }
+
+    router.push("/chat");
+  }
+
   return (
     <>
       <section
@@ -240,7 +269,11 @@ export default function LorePage() {
             <FaTimesCircle /> {error}
           </div>
         )}
-        <Button radius="rm" size="h-16 large w-full" onClick={() => router.push("/chat")}>
+        <Button
+          radius="rm"
+          size="h-16 large w-full"
+          onClick={() => handleStartAdventure()}
+        >
           Start Adventure
         </Button>
       </section>
