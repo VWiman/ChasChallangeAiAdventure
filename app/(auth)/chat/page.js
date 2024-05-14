@@ -276,8 +276,7 @@ export default function Chat() {
 
 					{isWaiting ? (
 						<li className="inline-flex flex-row text-center text-lg px-[20px] py-[10px]">
-							<img className="inline text-sm" width={25} height={25} src="/images/paper-export-small.gif"></img>Loading
-							content, please wait...
+							Loading content, please wait...
 						</li>
 					) : (
 						suggestions &&
