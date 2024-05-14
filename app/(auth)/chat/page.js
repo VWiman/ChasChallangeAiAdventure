@@ -256,7 +256,7 @@ export default function Chat() {
 	return response != "" ? (
 		<div>
 			<div className="flex flex-col m-auto mt-20 justify-center items-center text-lg max-w-4xl">
-				<h1>{name}´s adventure</h1>				
+				<h1>{name}´s adventure</h1>
 				<section className="py-2 leading-tight">
 					{hideUserResponse ? fullSystemHistory : displayHistory.slice(5)}
 				</section>
@@ -264,42 +264,48 @@ export default function Chat() {
 				<ul className="flex flex-col my-10 gap-2 w-full">
 					<div className=" inline-flex justify-between items-center">
 						<h3 className="text-primary">Select your next action:</h3>
-						<p className="text-xs">Show & Hide my action <button className="w-8 h-8 rounded-full bg-primary inline-flex items-center justify-center" onClick={() => setHideUserResponse(!hideUserResponse)}>
-						{hideUserResponse ? (
-							<FiEye />
-						) : (
-							<FiEyeOff />
-						)}
-							</button></p>
-					</div>
-					
-				{isWaiting ? (
-				<li className="text-center text-lg px-[20px] py-[10px]">Loading content, please wait...</li>
-				) : (
-				suggestions && suggestions.map((suggestion, index) => (
-					<li className="border-l-2 border-formbg hover:border-cardbg" key={index}>
+						<p className="text-xs">
+							Show & Hide my action{" "}
 							<button
-									className="w-full text-left text-lg px-[20px] py-[10px] text-browngray hover:text-textcolor  hover:bg-formbg"
-									onClick={() => handleSuggestion(suggestion)}
-							>
-									{suggestion}
+								className="w-8 h-8 rounded-full bg-primary inline-flex items-center justify-center"
+								onClick={() => setHideUserResponse(!hideUserResponse)}>
+								{hideUserResponse ? <FiEye /> : <FiEyeOff />}
 							</button>
-					</li>
-				))
-				)}
+						</p>
+					</div>
+
+					{isWaiting ? (
+						<li className="inline-flex flex-row text-center text-lg px-[20px] py-[10px]">
+							<img className="inline text-sm" width={25} height={25} src="/images/paper-export-small.gif"></img>Loading
+							content, please wait...
+						</li>
+					) : (
+						suggestions &&
+						suggestions.map((suggestion, index) => (
+							<li className="border-l-2 border-formbg hover:border-cardbg" key={index}>
+								<button
+									className="w-full text-left text-lg px-[20px] py-[10px] text-browngray hover:text-textcolor  hover:bg-formbg"
+									onClick={() => handleSuggestion(suggestion)}>
+									{suggestion}
+								</button>
+							</li>
+						))
+					)}
 				</ul>
 			</div>
 
 			<div className="flex flex-col justify-center items-center pb-16 pt-8">
-				<Button radius="rm" size="large" onClick={handleSendSummary}>Summarize</Button>
+				<Button radius="rm" size="large" onClick={handleSendSummary}>
+					Summarize
+				</Button>
 				{loadingSummary ? (
-						<p className="p-10 my-10 text-lg">Summary is loading...</p>
+					<p className="p-10 my-10 text-lg">Summary is loading...</p>
 				) : (
-						summary && (
-								<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
-										{summary}
-								</pre>
-						)
+					summary && (
+						<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
+							{summary}
+						</pre>
+					)
 				)}
 			</div>
 		</div>
