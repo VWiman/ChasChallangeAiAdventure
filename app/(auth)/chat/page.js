@@ -296,7 +296,7 @@ export default function Chat() {
 						<p className="p-10 my-10 text-lg">Summary is loading...</p>
 				) : (
 						summary && (
-								<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
+								<pre className="max-w-4xl p-10 my-10 whitespace-pre-wrap text-slate-800 bg-amber-100/70 text-lg leading-relaxed">
 										{summary}
 								</pre>
 						)

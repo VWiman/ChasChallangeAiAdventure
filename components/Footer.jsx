@@ -9,10 +9,9 @@ export default function Footer() {
 					<p> 2024 - &copy; AI Adventure</p>
 				</div>
 				<div className="flex gap-2">
+					<Link className="hover:text-primary" href="https://github.com/VWiman/ChasChallangeAiAdventure">Github</Link>
 					<Link className="hover:text-primary" href="/">Home</Link>
 					<Link className="hover:text-primary" href="/validate">Start Game</Link>
-					<Link className="hover:text-primary" href="/">Help</Link>
-					<Link className="hover:text-primary" href="/">About</Link>
 				</div>
 			</div>
 		</footer>
