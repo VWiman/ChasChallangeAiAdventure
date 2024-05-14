@@ -4,15 +4,12 @@ import Link from "next/link";
 export default function Footer() {
 	return (
 		<footer className="mt-auto py-5 items-center bg-bgheader text-textcolor font-normal text-sm">
-			<div className="mycontainer flex justify-between">
+			<div className="mycontainer flex flex-col items-center gap-2">
 				<div className="items-center">
 					<p> 2024 - &copy; AI Adventure</p>
 				</div>
-				<div className="flex gap-2">
-					<Link className="hover:text-primary" href="/">Home</Link>
-					<Link className="hover:text-primary" href="/validate">Start Game</Link>
-					<Link className="hover:text-primary" href="/">Help</Link>
-					<Link className="hover:text-primary" href="/">About</Link>
+				<div className="flex gap-2 text-xs">
+					<p>Chas Academy Group Project</p>
 				</div>
 			</div>
 		</footer>
