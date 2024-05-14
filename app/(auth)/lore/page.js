@@ -54,25 +54,25 @@ export default function LorePage() {
   const races = [
     {
       name: "Human",
-      image: "./images/race/race-human.png",
+      image: "./images/race/new-race-human.png",
       description:
         "Humans are versatile and adaptable, excelling in various roles due to their balanced abilities and potential",
     },
     {
       name: "Half-Elf",
-      image: "./images/race/race-half-elf.png",
+      image: "./images/race/new-race-half-elf.png",
       description:
         "A versatile mix of human and elf, half-elves combine the best traits of both, excelling in social diplomacy and cultural adaptability",
     },
     {
       name: "Elf",
-      image: "./images/race/race-elf.png",
+      image: "./images/race/new-race-elf.png",
       description:
         "Elves are graceful, long-lived beings with a deep connection to magic and the natural world, skilled in archery and wisdom",
     },
     {
       name: "Dwarf",
-      image: "./images/race/race-dwarf.png",
+      image: "./images/race/new-race-dwarf.png",
       description:
         "Dwarves are stout and resilient, renowned for their combat prowess and unparalleled skills in mining and metalwork",
     },
