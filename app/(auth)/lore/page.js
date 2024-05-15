@@ -79,31 +79,31 @@ export default function LorePage() {
   ];
 
   const classes = [
-		{
-			name: "Warrior",
-			image: "./images/classes/swordIcon.png",
-			description:
-				"Masters of combat, warriors excel in physical prowess, using weapons and armor to dominate the battlefield",
-		},
-		{
-			name: "Ranger",
-			image: "./images/classes/arrowIcon.png",
-			description:
-				"Skilled hunters and trackers, rangers wield bows and nature magic, adept at stealth and survival in wild terrains",
-		},
-		{
-			name: "Mage",
-			image: "./images/classes/staffIcon.png",
-			description:
-				"Mages harness arcane energies to cast powerful spells, specializing in elemental manipulation and mystical knowledge",
-		},
-		{
-			name: "Druid",
-			image: "./images/classes/pawIcon.png",
-			description:
-				"Druids are guardians of nature, able to shapeshift and summon natural energies, proficient in healing and elemental magic",
-		},
-	];
+    {
+      name: "Warrior",
+      image: "./images/classes/swordIcon.png",
+      description:
+        "Masters of combat, warriors excel in physical prowess, using weapons and armor to dominate the battlefield",
+    },
+    {
+      name: "Ranger",
+      image: "./images/classes/arrowIcon.png",
+      description:
+        "Skilled hunters and trackers, rangers wield bows and nature magic, adept at stealth and survival in wild terrains",
+    },
+    {
+      name: "Mage",
+      image: "./images/classes/staffIcon.png",
+      description:
+        "Mages harness arcane energies to cast powerful spells, specializing in elemental manipulation and mystical knowledge",
+    },
+    {
+      name: "Druid",
+      image: "./images/classes/pawIcon.png",
+      description:
+        "Druids are guardians of nature, able to shapeshift and summon natural energies, proficient in healing and elemental magic",
+    },
+  ];
 
   const hometowns = [
     {
@@ -153,80 +153,135 @@ export default function LorePage() {
     setName(randomName[randomIndex]);
   }
 
+  function handleStartAdventure() {
+    // Check if all selections are made
+    if (!selectedRace) {
+      setError(
+        "Please select your character's race before starting the adventure."
+      );
+      return;
+    }
+    if (!selectedClass) {
+      setError(
+        "Please select your character's class before starting the adventure."
+      );
+      return;
+    }
+    if (!selectedHometown) {
+      setError(
+        "Please select your character's hometown before starting the adventure."
+      );
+      return;
+    }
+    if (!name.trim()) {
+      setError(
+        "Please enter your character's name before starting the adventure."
+      );
+      return;
+    }
+
+    router.push("/chat");
+  }
+
   return (
-		<>
-			<section id="race" className="flex flex-col justify-center items-center gap-10 my-28">
-				<h1 className="text-5xl font-normal text-center">Choose your character race</h1>
-				<div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
-					{races.map((race) => (
-						<CardSelection
-							key={race.name}
-							imgUrl={race.image}
-							title={race.name}
-							description={race.description}
-							onClick={() => handleSelectRace(race)}
-							isSelected={selectedRace === race.name}
-						/>
-					))}
-				</div>
-			</section>
+    <>
+      <section
+        id="race"
+        className="flex flex-col justify-center items-center gap-10 my-28"
+      >
+        <h1 className="text-5xl font-normal text-center">
+          Choose your character race
+        </h1>
+        <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
+          {races.map((race) => (
+            <CardSelection
+              key={race.name}
+              imgUrl={race.image}
+              title={race.name}
+              description={race.description}
+              onClick={() => handleSelectRace(race)}
+              isSelected={selectedRace === race.name}
+            />
+          ))}
+        </div>
+      </section>
 
-			<section id="class" className="flex flex-col justify-center items-center gap-10 my-28">
-				<h1 className="text-5xl font-normal text-center">Choose your character class</h1>
-				<div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
-					{classes.map((cls) => (
-						<CardSelection
-							key={cls.name}
-							imgUrl={cls.image}
-							title={cls.name}
-							description={cls.description}
-							onClick={() => handleSelectClass(cls)}
-							isSelected={selectedClass === cls.name}
-						/>
-					))}
-				</div>
-			</section>
+      <section
+        id="class"
+        className="flex flex-col justify-center items-center gap-10 my-28"
+      >
+        <h1 className="text-5xl font-normal text-center">
+          Choose your character class
+        </h1>
+        <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
+          {classes.map((cls) => (
+            <CardSelection
+              key={cls.name}
+              imgUrl={cls.image}
+              title={cls.name}
+              description={cls.description}
+              onClick={() => handleSelectClass(cls)}
+              isSelected={selectedClass === cls.name}
+            />
+          ))}
+        </div>
+      </section>
 
-			<section id="town" className="flex flex-col justify-center items-center gap-10 my-28">
-				<h1 className="text-5xl font-normal text-center">Choose your character home</h1>
-				<div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
-					{hometowns.map((home) => (
-						<CardSelection
-							key={home.name}
-							imgUrl={home.image}
-							title={home.name}
-							description={home.description}
-							onClick={() => handleSelectHometown(home)}
-							isSelected={selectedHometown === home.name}
-						/>
-					))}
-				</div>
-			</section>
+      <section
+        id="town"
+        className="flex flex-col justify-center items-center gap-10 my-28"
+      >
+        <h1 className="text-5xl font-normal text-center">
+          Choose your character home
+        </h1>
+        <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
+          {hometowns.map((home) => (
+            <CardSelection
+              key={home.name}
+              imgUrl={home.image}
+              title={home.name}
+              description={home.description}
+              onClick={() => handleSelectHometown(home)}
+              isSelected={selectedHometown === home.name}
+            />
+          ))}
+        </div>
+      </section>
 
-			<section className="flex flex-col justify-center items-center gap-10 m-28">
-				<h1 className="text-5xl font-normal text-center">Enter Your Character's Name</h1>
-				<p>Write your character name or generate.</p>
-				<div className="flex gap-2 pb-12">
-					<input
-						type="text"
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-						placeholder="Name"
-						className="w-[80%] bg-formbg placeholder:text-textcolor h-16 rounded-xl"
-					/>
-					<Button onClick={() => handleRandomName()} className="w-1/5" size="rounded-xl h-16 px-3">
-						Generate
-					</Button>
-				</div>
-				{error && (
-					<div className="bg-red-100 text-red-800 mt-3 flex p-3 align-middle gap-3 items-center">
-						<FaTimesCircle /> {error}
-					</div>
-				)}
-				<Button radius="rm" size="h-16 large w-full" onClick={() => router.push("/chat")}>
-					Start Adventure
-				</Button>
-			</section>
-		</>
-	);
+      <section className="flex flex-col justify-center items-center gap-10 m-28">
+        <h1 className="text-5xl font-normal text-center">
+          Enter Your Character's Name
+        </h1>
+        <p>Write your character name or generate.</p>
+        <div className="flex gap-2 pb-12">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+            className="w-[80%] bg-formbg placeholder:text-textcolor h-16 rounded-xl"
+          />
+          <Button
+            onClick={() => handleRandomName()}
+            className="w-1/5"
+            size="rounded-xl h-16 px-3"
+          >
+            Generate
+          </Button>
+        </div>
+        {error && (
+          <div className="bg-red-100 text-red-800 mt-3 flex p-3 align-middle gap-3 items-center">
+            <FaTimesCircle /> {error}
+          </div>
+        )}
+        <Button
+          radius="rm"
+          size="h-16 large w-full"
+          onClick={() => handleStartAdventure()}
+        >
+          Start Adventure
+        </Button>
+      </section>
+    </>
+  );
 }
