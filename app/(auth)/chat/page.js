@@ -31,7 +31,7 @@ export default function Chat() {
 	const [hideUserResponse, setHideUserResponse] = useState(false);
 
 	// Summary button loading functionality
-	const [loadingSummary, setLoadingSummary] = useState(false); 
+	const [loadingSummary, setLoadingSummary] = useState(false);
 
 	const sendMessage = async (userMessage = message) => {
 		if (!apiKey) {
@@ -209,7 +209,7 @@ export default function Chat() {
 	}
 
 	const handleSendSummary = async () => {
-		setLoadingSummary(true); 
+		setLoadingSummary(true);
 		console.log("Starting fetch...");
 		try {
 			const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -249,8 +249,8 @@ export default function Chat() {
 			console.error("API request failed:", error);
 			setResponse("Failed to send message. Please try again.");
 		} finally {
-        setLoadingSummary(false); // loadingSummary = false after fetch done
-    }
+			setLoadingSummary(false); // loadingSummary = false after fetch done
+		}
 	};
 
 	return response != "" ? (
@@ -275,7 +275,8 @@ export default function Chat() {
 					</div>
 
 					{isWaiting ? (
-						<li className="inline-flex flex-row text-center text-lg px-[20px] py-[10px]">
+						<li className="inline-flex items-center flex-row text-left text-lg px-[20px] py-[10px] p-10 my-10 w-full text-browngray">
+							<svg className="animate-spin h-5 w-5 mr-3 border border-l border-primary border-l-primary/30 rounded-full"></svg>
 							Loading content, please wait...
 						</li>
 					) : (
@@ -293,12 +294,16 @@ export default function Chat() {
 				</ul>
 			</div>
 
-			<div className="flex flex-col justify-center items-center pb-16 pt-8">
-				<Button radius="rm" size="large" onClick={handleSendSummary}>
-					Summarize
-				</Button>
+			<div className="flex flex-col max-w-4xl m-auto justify-center items-center pb-16 pt-8">
+				{loadingSummary ? "" :
+					<Button radius="rm" size="large" onClick={handleSendSummary}>
+						Summarize
+					</Button>}
 				{loadingSummary ? (
-					<p className="p-10 my-10 text-lg">Summary is loading...</p>
+					<div className="flex justify-center items-center p-10 my-10 w-full text-lg px-[20px] py-[10px] text-browngray">
+						<svg className="animate-spin h-5 w-5 mr-3 border border-l border-primary border-l-primary/30 rounded-full"></svg>
+						<p>Summary is loading...</p>
+					</div>
 				) : (
 					summary && (
 						<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
@@ -309,6 +314,8 @@ export default function Chat() {
 			</div>
 		</div>
 	) : (
-		<div className="mycontainer flex justify-center items-center mt-10"><h2>Loading, please wait...</h2></div>
+		<div className="mycontainer flex justify-center items-center mt-10">
+			<h2>Loading, please wait...</h2>
+		</div>
 	);
 }
