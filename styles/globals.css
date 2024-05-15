@@ -12,7 +12,7 @@
 
 html,
 body {
-  @apply text-textcolor bg-bgcolor text-base font-normal;
+  @apply text-textcolor bg-bgcolor sm:text-base text-sm font-normal;
   font-family:var(--font-noto);
   
 }
@@ -21,14 +21,14 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  @apply font-normal text-7xl mb-2 mt-1 leading-tight;
+  @apply font-normal text-5xl md:text-7xl mb-2 mt-1 leading-none;
   
 }
 h2 {
-  @apply font-normal text-6xl mb-2 mt-1 leading-tight;
+  @apply font-normal text-4xl md:text-5xl mb-2 mt-1 leading-tight;
 }
 h3 {
-  @apply font-normal text-4xl mb-2 mt-1 leading-tight;
+  @apply font-normal text-3xl md:text-4xl mb-2 mt-1 leading-tight;
 }
 
 .mycontainer {
@@ -36,7 +36,7 @@ h3 {
 }
 
 .hcard {
-  @apply rounded-lg p-4 text-sm;
+  @apply rounded-lg sm:p-4 p-2 text-sm;
 }
 .hcard span {
   @apply rounded-full p-1 bg-primary w-10 h-10 text-2xl inline-block align-middle text-center text-darktext mr-2 mt-[-5px] font-bold;

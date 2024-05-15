@@ -262,7 +262,7 @@ export default function Chat() {
 				</section>
 
 				<ul className="flex flex-col my-10 gap-2 w-full">
-					<div className=" inline-flex justify-between items-center">
+					<div className=" inline-flex justify-between items-center sm:flex-row flex-col">
 						<h3 className="text-primary">Select your next action:</h3>
 						<p className="text-xs">
 							Show & Hide my action{" "}

@@ -12,7 +12,7 @@ export default function Home() {
       <MainHero />
       <HowWork />
       <div className="mycontainer pt-16 pb-32">
-        <h3 className=" mb-6">How their stories began..</h3>
+        <h2 className=" mb-6">How their stories began..</h2>
         <StorySum />
       </div>
 		</main>

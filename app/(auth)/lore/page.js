@@ -248,23 +248,22 @@ export default function LorePage() {
         </div>
       </section>
 
-      <section className="flex flex-col justify-center items-center gap-10 m-28">
+      <section className="flex flex-col justify-center items-center gap-5 my-28">
         <h1 className="text-5xl font-normal text-center">
           Enter Your Character's Name
         </h1>
         <p>Write your character name or generate.</p>
-        <div className="flex gap-2 pb-12">
+        <div className="flex gap-2 max-w-xl w-full pb-12">
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Name"
-            className="w-[80%] bg-formbg placeholder:text-textcolor h-16 rounded-xl"
+            className="w-[70%] bg-formbg placeholder:text-textcolor h-16 rounded-xl"
           />
           <Button
             onClick={() => handleRandomName()}
-            className="w-1/5"
-            size="rounded-xl h-16 px-3"
+            size="rounded-xl h-16 px-3 w-[30%]"
           >
             Generate
           </Button>
@@ -276,7 +275,7 @@ export default function LorePage() {
         )}
         <Button
           radius="rm"
-          size="h-16 large w-full"
+          size="h-16 large sm:w-80 w-60"
           onClick={() => handleStartAdventure()}
         >
           Start Adventure

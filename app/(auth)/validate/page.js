@@ -41,22 +41,22 @@ export default function Validate() {
       
       <h1>Enter Your API-key</h1>
       <p>Before you can begin your adventure, please enter your API key for validation.</p>
-      <div className="container mx-auto max-w-4xl flex gap-2">
+      <div className="container mx-auto max-w-4xl sm:flex sm:flex-row flex flex-col sm:gap-2 gap-5 items-center">
         <input
           type="text"
           value={localApiKey}
           onChange={(e) => setLocalApiKey(e.target.value)}
           placeholder="API Key"
-          className="w-[80%] bg-formbg placeholder:text-textcolor h-16 rounded-xl"
+          className="sm:w-[80%] w-full bg-formbg placeholder:text-textcolor h-16 rounded-xl"
           />
-          <div className="w-[20%]">
+          <div className="sm:w-[20%] w-60">
             <Button size="h-16 w-full rounded-xl" onClick={handleValidation}>Validate</Button>
           </div>
       </div>
       {error && <div className="bg-red-100 text-red-800 mt-3 flex p-3 align-middle gap-3 items-center "><FaTimesCircle /> {error}</div>}
     </div>
-    <div className=" pt-12 pb-32">
-        <h3>How their stories began..</h3>
+    <div className="pt-12 pb-32">
+        <h2 className="mb-4 text-center md:text-left">How their stories began..</h2>
       <StorySum />
     </div>
     </>
