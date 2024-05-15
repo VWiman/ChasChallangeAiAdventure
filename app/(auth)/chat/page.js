@@ -258,7 +258,7 @@ export default function Chat() {
 			<div className="flex flex-col m-auto mt-20 justify-center items-center text-lg max-w-4xl">
 				<h1>{name}´s adventure</h1>
 				<section className="py-2 leading-tight">
-					{hideUserResponse ? fullSystemHistory : displayHistory.slice(5)}
+					{hideUserResponse ? fullSystemHistory : displayHistory.slice(3)}
 				</section>
 
 				<ul className="flex flex-col my-10 gap-2 w-full">
