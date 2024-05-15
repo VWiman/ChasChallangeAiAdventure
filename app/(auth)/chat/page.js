@@ -309,6 +309,6 @@ export default function Chat() {
 			</div>
 		</div>
 	) : (
-		<div>Loading, please wait...</div>
+		<div className="mycontainer flex justify-center items-center mt-10"><h2>Loading, please wait...</h2></div>
 	);
 }
