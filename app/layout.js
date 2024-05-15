@@ -1,4 +1,4 @@
-import Header from "@/components/header";
+import Header from "@/components/Header";
 import "/styles/globals.css";
 import { Grenze, Noto_Sans } from "next/font/google";
 import Footer from "@/components/Footer";
