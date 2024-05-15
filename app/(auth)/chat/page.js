@@ -306,7 +306,7 @@ export default function Chat() {
 					</div>
 				) : (
 					summary && (
-						<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-stone-100 text-lg leading-relaxed">
+						<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-amber-50/70 text-lg leading-relaxed">
 							{summary}
 						</pre>
 					)
@@ -314,7 +314,7 @@ export default function Chat() {
 			</div>
 		</div>
 	) : (
-		<div className="mycontainer flex justify-center items-center mt-10">
+		<div className="mycontainer flex justify-center items-center mt-20">
 			<h2>Loading, please wait...</h2>
 		</div>
 	);
