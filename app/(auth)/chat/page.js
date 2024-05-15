@@ -69,7 +69,7 @@ export default function Chat() {
 				},
 				message: "Response to " + userMessage,
 			},
-			suggestions: "Provide suggestions of what to do next",
+			suggestions: "Provide suggestions of what to do next. There are ALWAYS three suggestions.",
 		});
 
 		try {
@@ -85,7 +85,7 @@ export default function Chat() {
 					model: "gpt-4-1106-preview",
 					response_format: { type: "json_object" },
 					temperature: 0.0,
-					max_tokens: 400,
+					max_tokens: 600,
 					messages: [
 						{
 							role: "user",
@@ -94,7 +94,7 @@ export default function Chat() {
 						{
 							role: "system",
 							content:
-								"You are a dungeon master, you guide the user on an adventure. The user is assuming the role of a character.",
+								"You are a dungeon master, you guide the user on an adventure. The user is assuming the role of a character. Never end the story.",
 						},
 						{
 							role: "system",
