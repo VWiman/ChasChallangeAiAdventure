@@ -2,7 +2,7 @@ const HowWork = () => {
 	return (
 		<div className="mycontainer flex flex-col lg:flex-row gap-2 pt-8 pb-12">
 			<div className="min-w-80">
-				<h2>How it works?</h2>
+				<h2>How it works</h2>
 			</div>
 			<div className="cards grid gap-4 sm:grid-cols-2 sm:grid-rows-2 grid-cols-1 grid-rows-1">
 				<div className="hcard bg-cardbg">
