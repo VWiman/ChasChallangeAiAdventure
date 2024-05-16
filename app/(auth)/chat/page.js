@@ -126,7 +126,7 @@ export default function Chat() {
 
 			if (response.ok) {
 				const fullMessageObject = JSON.parse(data.choices[0].message.content);
-				console.log("Full message object:", fullMessageObject);
+				// console.log("Full message object:", fullMessageObject);
 				setResponse(fullMessageObject.context.message);
 				setSuggestions(fullMessageObject.suggestions);
 				setFullSystemHistory((prevFullSystemHistory) => {
@@ -171,12 +171,12 @@ export default function Chat() {
 	}, []);
 
 	// Logging history
-	useEffect(() => {
-		console.log("Recent history: ", history);
-		console.log("Full user history: ", fullUserHistory);
-		console.log("Full system history: ", fullSystemHistory);
-		console.log("Full history: ", fullHistory);
-	}, [history, fullUserHistory]);
+	// useEffect(() => {
+	// 	console.log("Recent history: ", history);
+	// 	console.log("Full user history: ", fullUserHistory);
+	// 	console.log("Full system history: ", fullSystemHistory);
+	// 	console.log("Full history: ", fullHistory);
+	// }, [history, fullUserHistory]);
 
 	useEffect(() => {
 		setFullHistory(fullHistory + response + "\n");
@@ -210,7 +210,7 @@ export default function Chat() {
 
 	const handleSendSummary = async () => {
 		setLoadingSummary(true);
-		console.log("Starting fetch...");
+		// console.log("Starting fetch...");
 		try {
 			const response = await fetch("https://api.openai.com/v1/chat/completions", {
 				method: "POST",
