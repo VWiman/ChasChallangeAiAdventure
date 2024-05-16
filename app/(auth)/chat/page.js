@@ -107,7 +107,7 @@ export default function Chat() {
 						{
 							role: "system",
 							content:
-								"Tell the user what happens from a second person perspective, and present 3 suggestions for what to do next. Dont pose the questions in your text response, only present suggestions in suggestions.",
+								"Tell the user what happens from a second person perspective, and present 3 suggestions for what to do next. Do not pose the questions in your text response. Only present suggestions in suggestions array.",
 						},
 						{
 							role: "system",
@@ -126,7 +126,7 @@ export default function Chat() {
 
 			if (response.ok) {
 				const fullMessageObject = JSON.parse(data.choices[0].message.content);
-				// console.log("Full message object:", fullMessageObject);
+				console.log("Full message object:", fullMessageObject);
 				setResponse(fullMessageObject.context.message);
 				setSuggestions(fullMessageObject.suggestions);
 				setFullSystemHistory((prevFullSystemHistory) => {
@@ -165,7 +165,7 @@ export default function Chat() {
 					hasSentInitialMessage.current = true;
 				});
 			}
-		}, 100);
+		}, 500);
 
 		return () => clearTimeout(timeout);
 	}, []);
@@ -221,7 +221,7 @@ export default function Chat() {
 				body: JSON.stringify({
 					model: "gpt-4-1106-preview",
 					temperature: 0.0,
-					max_tokens: 2000,
+					max_tokens: 600,
 					messages: [
 						{
 							role: "user",
