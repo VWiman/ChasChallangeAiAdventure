@@ -29,6 +29,7 @@ export default function Chat() {
 	const [isWaiting, setIsWaiting] = useState(false);
 	const [summary, setSummary] = useState("");
 	const [hideUserResponse, setHideUserResponse] = useState(false);
+	const [turn, setTurn] = useState(0);
 
 	// Summary button loading functionality
 	const [loadingSummary, setLoadingSummary] = useState(false);
@@ -50,7 +51,7 @@ export default function Chat() {
 		});
 
 		setHistory((prevHistory) => {
-			const newHistory = prevHistory.length >= 4 || prevHistory.length === 1 ? prevHistory.slice(1) : prevHistory;
+			const newHistory = prevHistory.length >= 10 || prevHistory.length === 1 ? prevHistory.slice(1) : prevHistory;
 			return [...newHistory, " user: " + userMessage];
 		});
 
@@ -72,6 +73,37 @@ export default function Chat() {
 			suggestions: "Provide suggestions of what to do next. There are ALWAYS three suggestions.",
 		});
 
+		const progress = `This is turn ${turn} out of 10. The story will end with turn 10. Storytelling instructions for this turn:
+	${turn < 1 ? "Welcome message." : ""}
+	${
+		turn >= 1 && turn < 4
+			? "Introduction - Focus: Build up - Objective: Introduce the world, characters, and initial context. Set the stage for the adventure."
+			: ""
+	}
+	${
+		turn >= 4 && turn < 7
+			? "Climax - Focus: Significant progression - Objective: Drive the story forward with major events, conflicts, and turning points. Enhance the adventure."
+			: ""
+	}
+	${
+		turn >= 7 && turn < 9
+			? "Wrap-up - Focus: Lead towards the ending - Objective: Start resolving the story's conflicts and mysteries. Prepare for a satisfying conclusion."
+			: ""
+	}
+	${
+		turn >= 9 && turn < 10
+			? "Ending - Focus: Conclusion - Objective: Provide a satisfying and definitive ending. Resolve all remaining plot points and bring closure to the adventure."
+			: ""
+	}
+	${
+		turn === 10
+			? "Final Turn - This is the last turn. Ensure the story concludes with no loose ends. All plot points must be resolved and the story must have a clear, definitive ending."
+			: ""
+	}`.trim();
+
+		console.log(progress);
+		setTurn((turn) => turn + 1);
+		console.log(turn);
 		try {
 			setIsWaiting(true);
 			const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -94,7 +126,11 @@ export default function Chat() {
 						{
 							role: "system",
 							content:
-								"You are a dungeon master, you guide the user on an adventure. The user is assuming the role of a character. Never end the story.",
+								"You are a dungeon master, you guide the user on an adventure. The user is assuming the role of a character.",
+						},
+						{
+							role: "system",
+							content: progress,
 						},
 						{
 							role: "system",
@@ -107,7 +143,7 @@ export default function Chat() {
 						{
 							role: "system",
 							content:
-								"Tell the user what happens from a second person perspective, and present 3 suggestions for what to do next. Do not pose the questions in your text response. Only present suggestions in suggestions array.",
+								"Tell the user what happens from a second person perspective, and present 3 suggestions for what to do next. Do not pose the questions in your text response. Only present suggestions in suggestions array, not in message.",
 						},
 						{
 							role: "system",
@@ -132,7 +168,7 @@ export default function Chat() {
 				setFullSystemHistory((prevFullSystemHistory) => {
 					return [
 						...prevFullSystemHistory,
-						<p className="py-2" key={fullMessageObject.context.message.slice(10)}>
+						<p className="py-2" key={fullMessageObject.context.message.slice(10) + performance.now()}>
 							{fullMessageObject.context.message}
 						</p>,
 					];
@@ -156,7 +192,6 @@ export default function Chat() {
 
 	/* 
 	-- Initial message using useEffect --
-	Important: In production we should remove hasSentInitialMessage and timeout as strict mode is no longer needed. At the moment we need it to not call api twice on first page load.
 	*/
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -165,12 +200,12 @@ export default function Chat() {
 					hasSentInitialMessage.current = true;
 				});
 			}
-		}, 500);
+		}, 300);
 
 		return () => clearTimeout(timeout);
 	}, []);
 
-	// Logging history
+	// // Logging history
 	// useEffect(() => {
 	// 	console.log("Recent history: ", history);
 	// 	console.log("Full user history: ", fullUserHistory);
@@ -182,7 +217,7 @@ export default function Chat() {
 		setFullHistory(fullHistory + response + "\n");
 		setDisplayHistory((prevDisplayHistory) => {
 			const newDisplayHistory = prevDisplayHistory;
-			return [...newDisplayHistory, <p key={response.slice(0, 10)}>{response}</p>];
+			return [...newDisplayHistory, <p key={response.slice(0, 10) + performance.now()}>{response}</p>];
 		});
 	}, [fullSystemHistory]);
 
@@ -196,7 +231,9 @@ export default function Chat() {
 			const newDisplayHistory = prevDisplayHistory;
 			return [
 				...newDisplayHistory,
-				<p className="text-browngray py-2 pl-3 my-3 border-l-2 border-formbg" key={message.slice(0, 10)}>
+				<p
+					className="text-browngray py-2 pl-3 my-3 border-l-2 border-formbg"
+					key={message.slice(0, 10) + performance.now()}>
 					{message}
 				</p>,
 			];
@@ -259,11 +296,23 @@ export default function Chat() {
 				<h1>{name}´s adventure</h1>
 				<section className="py-2 leading-tight">
 					{hideUserResponse ? fullSystemHistory : displayHistory.slice(3)}
+					{isWaiting ? (
+						<li className="inline-flex items-center flex-row text-left text-lg px-[20px] py-[10px] p-10 my-10 w-full text-browngray">
+							<svg className="animate-spin h-5 w-5 mr-3 border border-l border-primary border-l-primary/30 rounded-full"></svg>
+							Loading content, please wait...
+						</li>
+					) : (
+						""
+					)}
 				</section>
 
 				<ul className="flex flex-col my-10 gap-2 w-full">
 					<div className=" inline-flex justify-between items-center sm:flex-row flex-col">
-						<h3 className="text-primary">Select your next action:</h3>
+						{turn <= 10 ? (
+							<h3 className="text-primary">Select your next action:</h3>
+						) : (
+							<h3 className="text-primary">The End</h3>
+						)}
 						<p className="text-xs">
 							Show & Hide my action{" "}
 							<button
@@ -273,44 +322,50 @@ export default function Chat() {
 							</button>
 						</p>
 					</div>
-
-					{isWaiting ? (
-						<li className="inline-flex items-center flex-row text-left text-lg px-[20px] py-[10px] p-10 my-10 w-full text-browngray">
-							<svg className="animate-spin h-5 w-5 mr-3 border border-l border-primary border-l-primary/30 rounded-full"></svg>
-							Loading content, please wait...
-						</li>
-					) : (
-						suggestions &&
-						suggestions.map((suggestion, index) => (
-							<li className="border-l-2 border-formbg hover:border-cardbg" key={index}>
-								<button
-									className="w-full text-left text-lg px-[20px] py-[10px] text-browngray hover:text-textcolor  hover:bg-formbg"
-									onClick={() => handleSuggestion(suggestion)}>
-									{suggestion}
-								</button>
+					{turn <= 10 ? (
+						isWaiting ? (
+							<li className="inline-flex items-center flex-row text-left text-lg px-[20px] py-[10px] p-10 my-10 w-full text-browngray">
+								<svg className="animate-spin h-5 w-5 mr-3 border border-l border-primary border-l-primary/30 rounded-full"></svg>
+								Loading actions, please wait...
 							</li>
-						))
+						) : (
+							suggestions &&
+							suggestions.map((suggestion, index) => (
+								<li className="border-l-2 border-formbg hover:border-cardbg" key={index}>
+									<button
+										className="w-full text-left text-lg px-[20px] py-[10px] text-browngray hover:text-textcolor  hover:bg-formbg"
+										onClick={() => handleSuggestion(suggestion)}>
+										{suggestion}
+									</button>
+								</li>
+							))
+						)
+					) : (
+						<div className="flex flex-col max-w-4xl m-auto justify-center items-center pb-16 pt-8">
+							{loadingSummary ? (
+								""
+							) : (
+								<>
+									<Button radius="rm" size="large" onClick={handleSendSummary}>
+										Summarize
+									</Button>
+								</>
+							)}
+							{loadingSummary ? (
+								<div className="flex justify-center items-center p-10 my-10 w-full text-lg px-[20px] py-[10px] text-browngray">
+									<svg className="animate-spin h-5 w-5 mr-3 border border-l border-primary border-l-primary/30 rounded-full"></svg>
+									<p>Summary is loading...</p>
+								</div>
+							) : (
+								summary && (
+									<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-amber-50/70 text-lg leading-relaxed">
+										{summary}
+									</pre>
+								)
+							)}
+						</div>
 					)}
 				</ul>
-			</div>
-
-			<div className="flex flex-col max-w-4xl m-auto justify-center items-center pb-16 pt-8">
-				{loadingSummary ? "" :
-					<Button radius="rm" size="large" onClick={handleSendSummary}>
-						End Story
-					</Button>}
-				{loadingSummary ? (
-					<div className="flex justify-center items-center p-10 my-10 w-full text-lg px-[20px] py-[10px] text-browngray">
-						<svg className="animate-spin h-5 w-5 mr-3 border border-l border-primary border-l-primary/30 rounded-full"></svg>
-						<p>Summary is loading...</p>
-					</div>
-				) : (
-					summary && (
-						<pre className="p-10 my-10 whitespace-pre-wrap text-slate-800 bg-amber-50/70 text-lg leading-relaxed">
-							{summary}
-						</pre>
-					)
-				)}
 			</div>
 		</div>
 	) : (
