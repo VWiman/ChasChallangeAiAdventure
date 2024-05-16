@@ -297,7 +297,7 @@ export default function Chat() {
 			<div className="flex flex-col max-w-4xl m-auto justify-center items-center pb-16 pt-8">
 				{loadingSummary ? "" :
 					<Button radius="rm" size="large" onClick={handleSendSummary}>
-						Summarize
+						End Story
 					</Button>}
 				{loadingSummary ? (
 					<div className="flex justify-center items-center p-10 my-10 w-full text-lg px-[20px] py-[10px] text-browngray">

@@ -42,10 +42,10 @@ export default function MainHero() {
             unforgettable narrative.
           </p>
           <Link
-            className="bg-primary text-darktext hover:bg-accent hover:text-btnhovertext inline-block sm:w-80 w-60 px-10 py-5 rounded"
+            className="bg-primary text-darktext hover:bg-accent hover:text-btnhovertext inline-block w-60 px-10 py-5 rounded"
             href="/validate"
           >
-            Start your adventure
+            Start Adventure
           </Link>
         </div>
       </div>
